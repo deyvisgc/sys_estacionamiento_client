@@ -32,7 +32,7 @@
                                 <label for="example-text-input">Perfil</label>
                                 <div class="input-group">
                                     <div class="col-md-12">
-                                      <ng-select  formControlName="perfil" [class.is-invalid]="canpoPerfil.invalid && canpoPerfil.touched">
+                                      <ng-select  formControlName="perfil" [class.is-invalid]="canpoPerfil.invalid && canpoPerfil.dirty">
                                         <ng-option *ngFor="let p of perfil" [value]="p.id">{{p.name}}</ng-option>
                                       </ng-select>
                                       <div class="invalid-feedback" *ngIf="canpoPerfil.hasError('required')">Perfil es requerido</div>

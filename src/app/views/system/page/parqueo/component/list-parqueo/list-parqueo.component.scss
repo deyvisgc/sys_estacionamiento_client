@@ -1,5 +1,4 @@
 .widgets {
-    height: 170px;
     width: 180px;
     margin: 15px;
     border-radius: 5px;
@@ -20,7 +19,7 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     color: white;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 .widgets-info-title {
     font-size: 15px;
@@ -34,8 +33,10 @@
 }
 
 .bg-color-active {
+    height: 170px;
     background-color: #2eb85c;
 }
 .bg-color-desabilitado {
+    height: 180px;
     background-color: #9d0208;
 }

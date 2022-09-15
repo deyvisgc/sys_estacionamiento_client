@@ -27,7 +27,7 @@ import {
 import { ElModule } from 'element-angular';
 import { IconModule } from '@coreui/icons-angular';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgbModal, NgbModalModule, NgbToast, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalModule, NgbTimepicker, NgbToast, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientModule } from '@angular/common/http';
 import { FilterPipe } from '../utils/filter.pipe';

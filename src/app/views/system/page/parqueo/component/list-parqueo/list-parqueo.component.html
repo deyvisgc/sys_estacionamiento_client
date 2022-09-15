@@ -1,0 +1,49 @@
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header class="text-white" style="background-color:  #3399ff;">
+          <strong>Historial Parqueo</strong>
+          <div style=" display: flex; justify-content: end; margin-top: -20px;">
+            <el-button type="primary">Buscar por Codigo Operacion</el-button>
+            <el-button type="success"  (click)="openModal(modalregistro)">Nuevo Vehiculo</el-button>
+          </div>
+        </c-card-header>
+        <c-card-body>
+            <c-row>
+              <ng-container *ngFor="let item of list; let i = index">
+                  <div class="widgets" [ngClass]="{'bg-color-active': +item.status === 1, 'bg-color-desabilitado': +item.status === 0}">
+                      <div class="widgets-icon">
+                          <i class="fas fa-motorcycle" *ngIf="item.type_vehicle.id === 1"></i>
+                          <i class="fas fa-truck-moving" *ngIf="item.type_vehicle.id === 2"></i>
+                          <i class="fas fa-car-alt" *ngIf="item.type_vehicle.id === 3"></i>
+                      </div>
+                      <div class="widgets-info">
+                          <span class="widgets-info-title">Placa: </span>
+                          <span class="widgets-info-value">{{item.license_plate}}</span>
+                          <span class="widgets-info-title">Entrada:</span>
+                          <span class="widgets-info-value1" style="margin-left: 5px;font-size: 15px;"> {{item.check_in_time}} am</span>
+                          <span class="widgets-info-title"  *ngIf="+item.status === 0">Salida:
+                             <span class="widgets-info-value1" style="margin-left: 5px;font-size: 15px;">
+                               <span>{{item.departure_time}} pm</span>
+                              </span>
+                          </span>
+                          <span class="widgets-info-title">Precio Por Hora:</span>
+                          <span class="widgets-info-value1" style="margin-left: 5px;font-size: 15px;"> {{item.type_vehicle.precioHora | number: '1.2-2'}}</span>
+                      </div>
+                      <div style="display: flex; margin-top: 10px; justify-content: center;">
+                          <button class="btn btn-sm btn-info me-2" style="color: white;" cTooltip="Ver detalle" cTooltipPlacement="top" ><i class="fas fa-eye"></i></button>
+                          <button class="btn btn-sm btn-primary me-2" style="color: white;" cTooltip="Pagar tarifa" cTooltipPlacement="top" [disabled]="+item.status === 0"><i class="fas fa-wallet"></i></button>
+                          <button class="btn btn-sm btn-danger me-2" style="color: white;"  cTooltip="Eliminar Vehiculo" cTooltipPlacement="top" *ngIf="+item.status === 1"><i class="fas fa-trash-alt"></i></button>
+                          <button class="btn btn-sm btn-info me-2" style="color: white;" cTooltip="Imprimir ticket"><i class="fas fa-ticket"></i></button>
+                      </div>
+                  </div>
+                </ng-container>
+              </c-row>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+  <ng-template #modalregistro role="document" let-modal>
+    <app-form-parqueo (list)="getParqueo()"></app-form-parqueo>
+  </ng-template>
+  

@@ -4,31 +4,28 @@ import { Observable } from 'rxjs';
 import { UriConstante } from '../../constantes/uri.constants';
 import { RespuestaResponse } from '../../response/respuesta.request';
 import { UsuarioRequest } from '../../request/usuario.request';
+import { VehiculoRequest } from '../../request/vehiculo.request';
 @Injectable({
   providedIn: 'root'
 })
-export class OperacionService {
+export class ParqueoService {
 
-  constructor(private httpp: HttpClient) { }
+  constructor(private http: HttpClient) { }
   getAll (): Observable<any> {
-    return this.httpp.get(UriConstante.PARQUEO)
+    return this.http.get(UriConstante.PARQUEO)
   }
-  buscarReniec (dni: string): Observable<any> {
-    const URI = UriConstante.USUARIO_BUSCAR_DNI.replace('{dni}', dni)
-    return this.httpp.get(URI)
-  }
-  save (usuario: UsuarioRequest): Observable<RespuestaResponse> {
-    return this.httpp.post<RespuestaResponse>(UriConstante.USUARIO, usuario)
+  save (vehiculo: VehiculoRequest): Observable<RespuestaResponse> {
+    return this.http.post<RespuestaResponse>(UriConstante.PARQUEO, vehiculo)
   }
   update (usuario: UsuarioRequest): Observable<RespuestaResponse> {
-    return this.httpp.put<RespuestaResponse>(UriConstante.USUARIO + usuario.id, usuario)
+    return this.http.put<RespuestaResponse>(UriConstante.USUARIO + usuario.id, usuario)
   }
   getById (id: number): Observable<any> {
     const URI = UriConstante.GETBYID.replace('{id}', id.toString())
-    return this.httpp.get(URI)
+    return this.http.get(URI)
   }
   delete (id: number): Observable<RespuestaResponse> {
     const URI = UriConstante.DELETE.replace('{id}', id.toString())
-    return this.httpp.delete<RespuestaResponse>(URI)
+    return this.http.delete<RespuestaResponse>(URI)
   }
 }

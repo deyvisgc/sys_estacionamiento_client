@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {MethodComuns} from "../../../utils/method"
-import {AdminService} from "../../../core/service/admin/admin.service"
-import { UsuarioRequest } from '../../../core/request/usuario.request';
-import { PersonaRequest } from '../../../core/request/persona.request';
+
+import {MethodComuns} from "../../../../utils/method";
+import {AdminService} from "../../../../core/service/admin/admin.service"
+import { UsuarioRequest } from '../../../../core/request/usuario.request';
+import { PersonaRequest } from '../../../../core/request/persona.request';
 @Component({
   selector: 'app-form-users',
   templateUrl: './form-users.component.html',

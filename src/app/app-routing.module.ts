@@ -23,12 +23,12 @@ const routes: Routes = [
       {
         path: 'admin',
         loadChildren: () =>
-          import('./views/system/admin/admin.module').then((m) => m.AdminModule)
+          import('./views/system/page/admin/admin.module').then((m) => m.AdminModule)
       },
       {
         path: 'parqueo',
         loadChildren: () =>
-          import('./views/system/parqueo/parqueo.module').then((m) => m.ParqueoModule)
+          import('./views/system/page/parqueo/parqueo.module').then((m) => m.ParqueoModule)
       },
       {
         path: 'dashboard',

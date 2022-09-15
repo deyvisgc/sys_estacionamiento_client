@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UsuarioRequest } from '../../../core/request/usuario.request';
-import { AdminService } from '../../../core/service/admin/admin.service';
-import { MethodComuns } from '../../../utils/method';
+import {MethodComuns} from "../../../../utils/method";
+import {AdminService} from "../../../../core/service/admin/admin.service"
+import { UsuarioRequest } from '../../../../core/request/usuario.request';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-list-users',
