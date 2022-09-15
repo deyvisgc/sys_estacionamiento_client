@@ -1,0 +1,41 @@
+.widgets {
+    height: 170px;
+    width: 180px;
+    margin: 15px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+    box-shadow: 0 10px 6px -6px #777;
+}
+
+.widgets-icon {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 35px;
+    color: white;
+    margin-top: 5px;
+}
+.widgets-info {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    color: white;
+    margin-top: 10px;
+}
+.widgets-info-title {
+    font-size: 15px;
+    font-family: 'Playfair Display', serif;
+    font-weight: bolder;
+}
+.widgets-info-value {
+    font-size: 15px;
+    margin-left: 5px;
+    margin-top: 0px;
+}
+
+.bg-color-active {
+    background-color: #2eb85c;
+}
+.bg-color-desabilitado {
+    background-color: #9d0208;
+}

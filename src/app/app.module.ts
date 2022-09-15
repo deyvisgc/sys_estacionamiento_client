@@ -38,14 +38,16 @@ import {
   ListGroupModule,
   NavModule,
   ProgressModule,
-  SharedModule,
   SidebarModule,
   TabsModule,
   UtilitiesModule,
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
-
+import { ElModule } from 'element-angular';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {ErrorInterceptor} from "../app/views/system/core/helpers/error.interceptor";
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
@@ -59,6 +61,7 @@ const APP_CONTAINERS = [
 @NgModule({
   declarations: [AppComponent, ...APP_CONTAINERS],
   imports: [
+    HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -78,13 +81,13 @@ const APP_CONTAINERS = [
     ButtonGroupModule,
     ReactiveFormsModule,
     SidebarModule,
-    SharedModule,
     TabsModule,
     ListGroupModule,
     ProgressModule,
     BadgeModule,
     ListGroupModule,
     CardModule,
+    NgbModule
   ],
   providers: [
     {
@@ -95,6 +98,9 @@ const APP_CONTAINERS = [
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
+    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
     IconSetService,
     Title
   ],

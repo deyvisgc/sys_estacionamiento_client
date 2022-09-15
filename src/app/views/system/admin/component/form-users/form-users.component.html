@@ -1,0 +1,120 @@
+<div class="modal-header">
+    <h5 class="modal-title mt-0">{{title}}</h5>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modalService.dismissAll()"></button>
+  </div>
+  <div class="modal-body">
+    <c-row>
+        <c-col xs="12">
+            <c-card class="mb-4">
+                <c-card-body>
+                    <form [formGroup]="form">
+                        <c-row>
+                            <c-col md="4">
+                                <label for="example-text-input">Correo</label>
+                                <div class="input-group">
+                                    <div class="col-md-12">
+                                      <input aria-describedby="basic-addon2" formControlName="correo" [class.is-invalid]="canpoCorreo.invalid && canpoCorreo.dirty" cFormControl/>
+                                      <div class="invalid-feedback" *ngIf="canpoCorreo.hasError('required')">Correo es requerido</div>
+                                      <div class="invalid-feedback" *ngIf="canpoCorreo.hasError('email')">Formato incorrecto</div>
+                                    </div>
+                                </div>
+                            </c-col>
+                            <c-col md="4" *ngIf="!isEdit">
+                                <label for="example-text-input">Contraseña</label>
+                                <div class="input-group">
+                                    <div class="col-md-12">
+                                      <input aria-describedby="basic-addon2"  type="password" formControlName="password"  [class.is-invalid]="canpoPassword.invalid && canpoPassword.dirty" cFormControl/>
+                                      <div class="invalid-feedback" *ngIf="canpoCorreo.hasError('required')">Contraseña es requerida</div>
+                                    </div>
+                                </div>
+                            </c-col>
+                            <c-col md="4">
+                                <label for="example-text-input">Perfil</label>
+                                <div class="input-group">
+                                    <div class="col-md-12">
+                                      <ng-select  formControlName="perfil" [class.is-invalid]="canpoPerfil.invalid && canpoPerfil.touched">
+                                        <ng-option *ngFor="let p of perfil" [value]="p.id">{{p.name}}</ng-option>
+                                      </ng-select>
+                                      <div class="invalid-feedback" *ngIf="canpoPerfil.hasError('required')">Perfil es requerido</div>
+                                    </div>
+                                </div>
+                            </c-col>
+                            <p *ngIf="!isEdit"></p>
+                            <c-col md="4">
+                                <label for="example-text-input">Numero Documento</label>
+                                <div class="input-group">
+                                    <div class="col-md-12">
+                                    <c-input-group class="mb-3">
+                                      <input aria-describedby="basic-addon2"
+                                             appSoloNumero
+                                             aria-label="Recipient&#39;s username"
+                                             cFormControl
+                                             [class.is-invalid]="canpoDni.invalid && canpoDni.touched" 
+                                             formControlName="dni"
+                                      />
+                                      <span cInputGroupText id="basic-addon2" (click)="search()" style="cursor: pointer;">
+                                        <span *ngIf="!isSearch">Reniec</span>
+                                        <c-spinner *ngIf="isSearch" size="sm"></c-spinner>
+                                      </span>
+                                      <div class="invalid-feedback" *ngIf="canpoDni.hasError('required')">Numero documento Requerido</div>
+                                      <div class="invalid-feedback" *ngIf="canpoDni.hasError('minlength')">Minimo debete tener 8 digitos</div>
+                                      <div class="invalid-feedback" *ngIf="canpoDni.hasError('maxlength')">Maximo debete tener 8 digitos</div>
+                                    </c-input-group>
+                                    </div>
+                                </div>
+                            </c-col>
+                            <c-col md="8">
+                                <label for="example-text-input">Nombre</label>
+                                <div class="input-group">
+                                    <div class="col-md-12">
+                                      <div class="col-md-12">
+                                        <input aria-describedby="basic-addon2" formControlName="nombre" [class.is-invalid]="canpoNombre.invalid && canpoNombre.dirty" cFormControl/>
+                                        <div class="invalid-feedback" *ngIf="canpoNombre.hasError('required')">Nombre es requerido</div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </c-col>
+                            <p *ngIf="!isEdit"></p>
+                            <c-col md="4">
+                                <label for="example-text-input">Telefono</label>
+                                <div class="input-group">
+                                    <div class="col-md-12">
+                                      <input aria-describedby="basic-addon2" formControlName="telefono" appSoloNumero [class.is-invalid]="canpoTelefono.invalid && canpoTelefono.dirty" cFormControl/>
+                                      <div class="invalid-feedback" *ngIf="canpoTelefono.hasError('minlength')">Minimo debete tener 9 digitos</div>
+                                      <div class="invalid-feedback" *ngIf="canpoTelefono.hasError('maxlength')">Maximo debete tener 9 digitos</div>
+                                    </div>
+                                </div>
+                            </c-col>
+                            <p *ngIf="isEdit"></p>
+                            <c-col md="" [ngClass]="{'8': !isEdit, '12': isEdit}">
+                                <label for="example-text-input">Dirección</label>
+                                <div class="input-group">
+                                    <div class="col-md-12">
+                                        <el-input 
+                                          formControlName="direccion"
+                                          type="textarea"
+                                          size="small"
+                                          [rows]="2"
+                                          >
+                                        </el-input>
+                                    </div>
+                                </div>
+                            </c-col>
+                        </c-row>
+                    </form>
+                </c-card-body>
+                <c-card-footer>
+                  <c-row>
+                    <c-col md="12" style="display: flex; justify-content: flex-end;">
+                      <el-button size="small" type="danger"  (click)="modalService.dismissAll()">Cerrar</el-button>
+                      <el-button size="small" type="success" (click)="guardar()" [elDisabled]="form.invalid">
+                        <span *ngIf="!isSave">Guardar</span>
+                        <i *ngIf="isSave" class="fas fa-spinner fa-spin"></i>
+                      </el-button>  
+                    </c-col>
+                  </c-row>
+                </c-card-footer>
+            </c-card>
+        </c-col>
+    </c-row>
+  </div>

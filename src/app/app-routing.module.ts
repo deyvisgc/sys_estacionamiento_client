@@ -21,6 +21,16 @@ const routes: Routes = [
     },
     children: [
       {
+        path: 'admin',
+        loadChildren: () =>
+          import('./views/system/admin/admin.module').then((m) => m.AdminModule)
+      },
+      {
+        path: 'parqueo',
+        loadChildren: () =>
+          import('./views/system/parqueo/parqueo.module').then((m) => m.ParqueoModule)
+      },
+      {
         path: 'dashboard',
         loadChildren: () =>
           import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)

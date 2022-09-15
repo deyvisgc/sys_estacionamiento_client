@@ -24,3 +24,11 @@ $enable-rtl: true;
 
 // If you want to add something do it here
 @import "custom";
+// estilos de element angular
+@import "~element-angular/theme/index.css";
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+// ... or 
+//@import "~@ng-select/ng-select/themes/material.theme.css";
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

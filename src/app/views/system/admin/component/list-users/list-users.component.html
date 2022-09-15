@@ -1,0 +1,60 @@
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header class="text-white" style="background-color:  #3399ff; display: flex; justify-content: space-between;">
+            <strong>Listado de Usuarios</strong>
+            <el-button type="success" (click)="openModal(modalUsuario)" >Nuevo</el-button>
+        </c-card-header>
+        <c-card-body>
+          <div style="display: flex; justify-content: flex-end;">
+            <c-row>
+              <c-col>
+                <input aria-describedby="basic-addon2" aria-label="Recipient&#39;s username" placeholder="Buscar...." [(ngModel)]="textFind" cFormControl/>
+              </c-col>
+            </c-row>
+          </div>
+          <p></p>
+          <c-card>
+          </c-card>
+          <table cTable class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Usuario</th>
+              <th scope="col">Nombres</th>
+              <th scope="col">Perfil</th>
+              <th scope="col">Telefono</th>
+              <th scope="col">DNI</th>
+              <th scope="col">Dirección</th>
+              <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngIf="(list | filter: textFind) as result">
+              <tr *ngFor="let item of result | filter:textFind; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{item.email}}</td>
+                <td>{{item.person.name}}</td>
+                <td>{{item.role}}</td>
+                <td>{{item.person.phone}}</td>
+                <td>{{item.person.number}}</td>
+                <td>{{item.person.addres}}</td>
+                <td>
+                  <el-button size="mini" type="primary" icon="edit" (click)="edit(modalUsuario, item.id)"></el-button>
+                  <el-button size="mini" type="danger" icon="delete" (click)="delete(item.id)"></el-button>
+                </td>
+              </tr>
+              <!-- <div *ngIf="result.length === 0">
+                <i class="fas fa-user-alt-slash fa-3x"></i>
+              </div> -->
+            </ng-container>
+            </tbody>
+          </table>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+  <ng-template #modalUsuario role="document" let-modal>
+    <app-form-users (list)="fetchUsers()" [title]="title" [usuario]="response"></app-form-users>
+  </ng-template>
+  
