@@ -13,7 +13,10 @@ export class ListParqueoComponent implements OnInit {
 
   constructor(private modalService: NgbModal, private parqueoService: ParqueoService) { }
   list: any[] = []
+  title = ''
   vehiculo: VehiculoRequest
+  public isCollapsed = true;
+  codigoOperacion = ''
   ngOnInit(): void {
     this.getParqueo()
   }
@@ -25,6 +28,8 @@ export class ListParqueoComponent implements OnInit {
     })
   }
   openModal(model: any) {
+    this.vehiculo = null
+    this.title = 'Nuevo Registro'
     this.modalService.open(model, {size: 'lg'})
   }
   getDetalle (model: any, id: number) {
@@ -39,6 +44,14 @@ export class ListParqueoComponent implements OnInit {
       Swal.close()
       this.vehiculo = res
       this.modalService.open(model, {size: 'sm'})
+    }, error => {
+      MethodComuns.toastNotificacion('error', error.message)
+    })
+  }
+  edit (model: any, id: number) {
+    this.parqueoService.getById(id).subscribe(res => {
+      this.vehiculo = res
+      this.modalService.open(model, {size: 'lg'})
     }, error => {
       MethodComuns.toastNotificacion('error', error.message)
     })
@@ -103,6 +116,65 @@ export class ListParqueoComponent implements OnInit {
       console.log("error" + error)
       MethodComuns.toastNotificacion('error', error.message)
     })
+  }
+  delete(id:number) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger ms-2'
+      },
+      buttonsStyling: false
+    });
+    swalWithBootstrapButtons
+      .fire({
+        title: "<h5>Seguro de Eliminar Este Vehiculo?</h5>",
+        text:`¡No podrás revertir esto!?`,
+        icon: 'warning',
+        confirmButtonText: `<span style='color:white'>Si, Eliminar!</span>`,
+        cancelButtonText:  `<span style='color:white'>No, cerrar!</span>`,
+        showCancelButton: true,
+      })
+      .then(result => {
+        if (result.value) {
+          Swal.fire({
+            text: 'Eliminando vehiculo...',
+            background: "#F3EAEA",
+            allowOutsideClick: false,
+            allowEscapeKey: false
+          })
+          Swal.showLoading()
+          this.parqueoService.delete(id).subscribe(res => {
+            Swal.close()
+            if (res.success) {
+              MethodComuns.toastNotificacion('success', res.message)
+              this.getParqueo()
+            }
+          }, error => {
+            Swal.close()
+            MethodComuns.toastNotificacion('error', error.message)
+          })
+        }
+      });
+  }
+  buscar() {
+    if (!this.codigoOperacion) {
+      MethodComuns.toastNotificacion('error', "Codigo Operación es requerido")
+      return
+    }
+    this.parqueoService.buscarCodigoOperacion(this.codigoOperacion.toUpperCase()).subscribe(res => {
+      if (res) {
+        let data: any[] = [res]
+        this.list = data
+      } else {
+        MethodComuns.toastNotificacion('error', "No existe información para el codigo: " + this.codigoOperacion)
+      }
+    }, error => {
+      MethodComuns.toastNotificacion('error', error.message)
+    })
+  }
+  refresh () {
+    this.codigoOperacion = ''
+    this.getParqueo()
   }
 
 }

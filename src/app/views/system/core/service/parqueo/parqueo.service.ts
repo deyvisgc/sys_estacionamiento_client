@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UriConstante } from '../../constantes/uri.constants';
 import { RespuestaResponse } from '../../response/respuesta.request';
@@ -25,15 +25,20 @@ export class ParqueoService {
     const URI = UriConstante.PARQUEO + 'export/' + id_vechicle
     return this.http.get(URI, {responseType: 'blob'})
   }
-  update (usuario: UsuarioRequest): Observable<RespuestaResponse> {
-    return this.http.put<RespuestaResponse>(UriConstante.USUARIO + usuario.id, usuario)
+  update (vehiculo: VehiculoRequest): Observable<RespuestaResponse> {
+    return this.http.put<RespuestaResponse>(UriConstante.PARQUEO, vehiculo)
   }
   getById (id: number): Observable<any> {
     const URI = UriConstante.GETBYIDPARQUEO.replace('{id}', id.toString())
     return this.http.get(URI)
   }
+  buscarCodigoOperacion (codigoOperacion: string): Observable<any> {
+    const params = new HttpParams()
+    .set("code", codigoOperacion)
+    return this.http.get(UriConstante.BUSCARXCODIGOOPERACION, {params: params})
+  }
   delete (id: number): Observable<RespuestaResponse> {
-    const URI = UriConstante.DELETE.replace('{id}', id.toString())
+    const URI = UriConstante.DELETEVEHICULO.replace('{id}', id.toString())
     return this.http.delete<RespuestaResponse>(URI)
   }
 }

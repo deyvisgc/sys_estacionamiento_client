@@ -14,4 +14,7 @@ export class UriConstante {
     public static readonly TIPOVEHICULO = environment.host + GruposPath.TIPOVEHICULO
     public static readonly GETBYIDPARQUEO = environment.host + GruposPath.PARQUEO + '{id}'
     public static readonly SALIDAPARQUEO = environment.host + GruposPath.PARQUEO + 'salida/{codigoOperacion}'
+
+    public static readonly DELETEVEHICULO = environment.host + GruposPath.PARQUEO + '{id}'
+    public static readonly BUSCARXCODIGOOPERACION = environment.host + GruposPath.PARQUEO + 'search-code-operacion'
 }

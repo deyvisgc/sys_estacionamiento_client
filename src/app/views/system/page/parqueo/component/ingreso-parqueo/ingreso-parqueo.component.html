@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title mt-0">Nuevo Registro</h5>
+    <h5 class="modal-title mt-0">{{title}}</h5>
     <button type="button" class="btn-close" aria-hidden="true" (click)="modalService.dismissAll()"></button>
   </div>
   <div class="modal-body">
@@ -116,10 +116,14 @@
                   <c-row>
                     <c-col md="12" style="display: flex; justify-content: flex-end;">
                       <el-button size="small" type="danger"  (click)="modalService.dismissAll()">Cerrar</el-button>
-                      <el-button size="small" type="success" (click)="ingresar()" [elDisabled]="form.invalid">
+                      <el-button size="small" *ngIf="!isEdit" type="success" (click)="ingresar()" [elDisabled]="form.invalid">
                         <span *ngIf="!isSave">Ingresar</span>
                         <i *ngIf="isSave" class="fas fa-spinner fa-spin"></i>
-                      </el-button>  
+                      </el-button> 
+                      <el-button size="small" *ngIf="isEdit" type="success" (click)="update()" [elDisabled]="form.invalid">
+                        <span *ngIf="!isSave">Actualizar</span>
+                        <i *ngIf="isSave" class="fas fa-spinner fa-spin"></i>
+                      </el-button>
                     </c-col>
                   </c-row>
                 </c-card-footer>

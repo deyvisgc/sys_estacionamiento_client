@@ -27,7 +27,7 @@ import {
 import { ElModule } from 'element-angular';
 import { IconModule } from '@coreui/icons-angular';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgbModal, NgbModalModule, NgbTimepicker, NgbToast, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapse, NgbModal, NgbModalModule, NgbModule, NgbTimepicker, NgbToast, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FilterPipe } from '../utils/filter.pipe';
 import { SoloNumeroDirective } from '../utils/solo-numero.directive';
@@ -63,7 +63,8 @@ import { NgxPrintModule } from 'ngx-print';
     PopoverModule,
     TableModule,
     NgbModalModule,
-    WidgetModule
+    WidgetModule,
+    NgbModule
   ],
   exports: [
     NgxPrintModule,
@@ -95,7 +96,8 @@ import { NgxPrintModule } from 'ngx-print';
     PopoverModule,
     TableModule,
     NgbModalModule,
-    WidgetModule
+    WidgetModule,
+    NgbModule,
   ]
 })
 export class SharedSystemModule { }
