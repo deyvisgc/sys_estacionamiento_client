@@ -1,4 +1,5 @@
 export interface RespuestaResponse {
     message: string,
-    success: boolean
+    success: boolean,
+    data: any
 }

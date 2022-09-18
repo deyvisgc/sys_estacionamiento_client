@@ -29,12 +29,13 @@ import { IconModule } from '@coreui/icons-angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModal, NgbModalModule, NgbTimepicker, NgbToast, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { HttpClientModule } from '@angular/common/http';
 import { FilterPipe } from '../utils/filter.pipe';
 import { SoloNumeroDirective } from '../utils/solo-numero.directive';
+import { NgxPrintModule } from 'ngx-print';
 @NgModule({
   declarations: [SoloNumeroDirective, FilterPipe],
   imports: [
+    NgxPrintModule,
     NgSelectModule,
     CommonModule,
     AccordionModule,
@@ -65,6 +66,7 @@ import { SoloNumeroDirective } from '../utils/solo-numero.directive';
     WidgetModule
   ],
   exports: [
+    NgxPrintModule,
     FilterPipe,
     SoloNumeroDirective,
     NgSelectModule,

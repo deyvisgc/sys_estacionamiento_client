@@ -1,0 +1,38 @@
+<div class="modal-header" style="display: flex; justify-content: space-between;">
+    <h5 class="modal-title mt-0 fa-1x">DETALLE DE LA OPERACION: {{vehiculo.code}}</h5>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modalService.dismissAll()"></button>
+  </div>
+  <div class="modal-body">
+    <c-row>
+        <c-col xs="12">
+            <c-card class="mb-4">
+                <c-card-body id="print-section" >
+                    <div class="ticket">
+                        <img
+                            src="https://thumbs.dreamstime.com/z/logotipo-vectorial-de-la-zona-estacionamiento-para-autom%C3%B3viles-y-bicicletas-156033271.jpg"
+                            alt="Logotipo">
+                        <h4 class="centrado" style="font-weight: bolder;"> TICKET DE INGRESO</h4>
+                        <p style="font-size: 10px; text-align:  center"> PLAYA DE ESTABLECIMIENTO W.I.R.L</p>
+
+                        <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                            <span style="font-weight: bolder;">Codigo: <span style="font-weight: lighter;">{{vehiculo.code}}</span></span>
+                            <span style="font-weight: bolder; margin-top: -6px;">DNI: <span style="font-weight: lighter;">{{vehiculo.person.number}}</span></span>
+                            <span style="font-weight: bolder; margin-top: -6px;">Placa: <span style="font-weight: lighter;">{{vehiculo.license_plate}}</span></span>
+                            <span style="font-weight: bolder; margin-top: -6px;">Entrada: <span style="font-weight: lighter;">{{vehiculo.check_in_time}}</span></span>
+                            <span style="font-weight: bolder; margin-top: -6px;">Fecha: <span style="font-weight: lighter;">{{vehiculo.fechaRegistro | date: 'mediumDate'}}</span></span>
+                        </div>
+                        <p class="centrado" style="font-size: 14px; font-weight: bolder; ">¡Por favor, conserve este ticket!
+                    </div>
+                </c-card-body>
+                <c-card-footer>
+                  <c-row>
+                    <c-col md="12" style="display: flex; justify-content: flex-end;">
+                      <button class="btn btn-danger small text-white" (click)="modalService.dismissAll()" >Cerrar</button> 
+                      <button class="btn btn-info small text-white" [useExistingCss]="true" printSectionId="print-section"  ngxPrint>Imprimir</button> 
+                    </c-col>
+                  </c-row>
+                </c-card-footer>
+            </c-card>
+        </c-col>
+    </c-row>
+  </div>

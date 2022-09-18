@@ -23,7 +23,6 @@
 }
 .widgets-info-title {
     font-size: 15px;
-    font-family: 'Playfair Display', serif;
     font-weight: bolder;
 }
 .widgets-info-value {
@@ -34,9 +33,12 @@
 
 .bg-color-active {
     height: 170px;
-    background-color: #2eb85c;
+    background-color: #67c23a;
 }
 .bg-color-desabilitado {
     height: 180px;
-    background-color: #9d0208;
+    background-color: orange;
+}
+.swal-wide{
+    width:200px !important;
 }

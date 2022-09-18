@@ -14,14 +14,22 @@ export class ParqueoService {
   getAll (): Observable<any> {
     return this.http.get(UriConstante.PARQUEO)
   }
-  save (vehiculo: VehiculoRequest): Observable<RespuestaResponse> {
+  ingreso (vehiculo: VehiculoRequest): Observable<RespuestaResponse> {
     return this.http.post<RespuestaResponse>(UriConstante.PARQUEO, vehiculo)
+  }
+  salida (codigoOperacion: string): Observable<RespuestaResponse> {
+    const URI = UriConstante.SALIDAPARQUEO.replace('{codigoOperacion}', codigoOperacion)
+    return this.http.put<RespuestaResponse>(URI, {});
+  }
+  export (id_vechicle: number) {
+    const URI = UriConstante.PARQUEO + 'export/' + id_vechicle
+    return this.http.get(URI, {responseType: 'blob'})
   }
   update (usuario: UsuarioRequest): Observable<RespuestaResponse> {
     return this.http.put<RespuestaResponse>(UriConstante.USUARIO + usuario.id, usuario)
   }
   getById (id: number): Observable<any> {
-    const URI = UriConstante.GETBYID.replace('{id}', id.toString())
+    const URI = UriConstante.GETBYIDPARQUEO.replace('{id}', id.toString())
     return this.http.get(URI)
   }
   delete (id: number): Observable<RespuestaResponse> {

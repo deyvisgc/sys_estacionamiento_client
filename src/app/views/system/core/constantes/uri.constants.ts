@@ -12,4 +12,6 @@ export class UriConstante {
     //Modulo Parqueo
     public static readonly PARQUEO = environment.host + GruposPath.PARQUEO
     public static readonly TIPOVEHICULO = environment.host + GruposPath.TIPOVEHICULO
+    public static readonly GETBYIDPARQUEO = environment.host + GruposPath.PARQUEO + '{id}'
+    public static readonly SALIDAPARQUEO = environment.host + GruposPath.PARQUEO + 'salida/{codigoOperacion}'
 }

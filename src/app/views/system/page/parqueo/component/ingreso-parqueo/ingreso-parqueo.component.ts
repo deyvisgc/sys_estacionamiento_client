@@ -11,10 +11,10 @@ import { MethodComuns } from 'src/app/views/system/utils/method';
 
 @Component({
   selector: 'app-form-parqueo',
-  templateUrl: './form-parqueo.component.html',
-  styleUrls: ['./form-parqueo.component.scss']
+  templateUrl: './ingreso-parqueo.component.html',
+  styleUrls: ['./ingreso-parqueo.component.scss']
 })
-export class FormParqueoComponent implements OnInit {
+export class IngresoParqueoComponent implements OnInit {
   @Output() list = new EventEmitter()
   form: FormGroup
   isSave = false
@@ -50,7 +50,7 @@ export class FormParqueoComponent implements OnInit {
         check_in_time: this.canpoHoraIngreso.value
       }
       this.isSave = true
-      this.parqueoService.save(request).subscribe(res => {
+      this.parqueoService.ingreso(request).subscribe(res => {
         if (res.success) {
           MethodComuns.toastNotificacion('success', res.message)
           this.isSave = false

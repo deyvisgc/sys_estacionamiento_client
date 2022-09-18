@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormParqueoComponent } from './form-parqueo.component';
+import { TicketParqueoComponent } from './ticket-parqueo.component';
 
-describe('FormParqueoComponent', () => {
-  let component: FormParqueoComponent;
-  let fixture: ComponentFixture<FormParqueoComponent>;
+describe('TicketParqueoComponent', () => {
+  let component: TicketParqueoComponent;
+  let fixture: ComponentFixture<TicketParqueoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormParqueoComponent ]
+      declarations: [ TicketParqueoComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FormParqueoComponent);
+    fixture = TestBed.createComponent(TicketParqueoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
