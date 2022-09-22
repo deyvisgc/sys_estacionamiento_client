@@ -8,7 +8,7 @@ export class FilterPipe implements PipeTransform {
 
     if (!arg || arg.length < 3) return value
     return value.filter((f: any) => f.person.name.toLowerCase().includes(arg.toLowerCase()) || f.person.number.toLowerCase().includes(arg.toLowerCase())
-    || f.email.toLowerCase().includes(arg.toLowerCase()))
+    || f.user_name.toLowerCase().includes(arg.toLowerCase()))
   }
 
 }

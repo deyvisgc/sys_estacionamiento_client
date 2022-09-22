@@ -10,12 +10,11 @@
                     <form [formGroup]="form">
                         <c-row>
                             <c-col md="4">
-                                <label for="example-text-input">Correo</label>
+                                <label for="example-text-input">Usuario</label>
                                 <div class="input-group">
                                     <div class="col-md-12">
-                                      <input aria-describedby="basic-addon2" formControlName="correo" [class.is-invalid]="canpoCorreo.invalid && canpoCorreo.dirty" cFormControl/>
-                                      <div class="invalid-feedback" *ngIf="canpoCorreo.hasError('required')">Correo es requerido</div>
-                                      <div class="invalid-feedback" *ngIf="canpoCorreo.hasError('email')">Formato incorrecto</div>
+                                      <input aria-describedby="basic-addon2" formControlName="user_name" [class.is-invalid]="canpoUsername.invalid && canpoUsername.touched" cFormControl/>
+                                      <div class="invalid-feedback" *ngIf="canpoUsername.hasError('required')">Usuario es requerido</div>
                                     </div>
                                 </div>
                             </c-col>
@@ -23,19 +22,19 @@
                                 <label for="example-text-input">Contraseña</label>
                                 <div class="input-group">
                                     <div class="col-md-12">
-                                      <input aria-describedby="basic-addon2"  type="password" formControlName="password"  [class.is-invalid]="canpoPassword.invalid && canpoPassword.dirty" cFormControl/>
-                                      <div class="invalid-feedback" *ngIf="canpoCorreo.hasError('required')">Contraseña es requerida</div>
+                                      <input aria-describedby="basic-addon2"  type="password" formControlName="password"  [class.is-invalid]="canpoPassword.invalid && canpoPassword.touched" cFormControl/>
+                                      <div class="invalid-feedback" *ngIf="canpoPassword.hasError('required')">Contraseña es requerida</div>
                                     </div>
                                 </div>
                             </c-col>
                             <c-col md="4">
-                                <label for="example-text-input">Perfil</label>
+                                <label for="example-text-input">Rol</label>
                                 <div class="input-group">
                                     <div class="col-md-12">
-                                      <ng-select  formControlName="perfil" [class.is-invalid]="canpoPerfil.invalid && canpoPerfil.dirty">
-                                        <ng-option *ngFor="let p of perfil" [value]="p.id">{{p.name}}</ng-option>
+                                      <ng-select  [multiple]="true" formControlName="rol" [class.is-invalid]="canpoRol.invalid && canpoRol.touched">
+                                        <ng-option *ngFor="let r of rol" [value]="r.id">{{r.descripcion}}</ng-option>
                                       </ng-select>
-                                      <div class="invalid-feedback" *ngIf="canpoPerfil.hasError('required')">Perfil es requerido</div>
+                                      <div class="invalid-feedback" *ngIf="canpoRol.hasError('required')">Rol es requerido</div>
                                     </div>
                                 </div>
                             </c-col>
@@ -47,6 +46,7 @@
                                     <c-input-group class="mb-3">
                                       <input aria-describedby="basic-addon2"
                                              appSoloNumero
+                                             [maxlength]="8"
                                              aria-label="Recipient&#39;s username"
                                              cFormControl
                                              [class.is-invalid]="canpoDni.invalid && canpoDni.touched" 
@@ -68,7 +68,7 @@
                                 <div class="input-group">
                                     <div class="col-md-12">
                                       <div class="col-md-12">
-                                        <input aria-describedby="basic-addon2" formControlName="nombre" [class.is-invalid]="canpoNombre.invalid && canpoNombre.dirty" cFormControl/>
+                                        <input aria-describedby="basic-addon2" formControlName="nombre" [class.is-invalid]="canpoNombre.invalid && canpoNombre.touched" cFormControl/>
                                         <div class="invalid-feedback" *ngIf="canpoNombre.hasError('required')">Nombre es requerido</div>
                                       </div>
                                     </div>
@@ -79,7 +79,7 @@
                                 <label for="example-text-input">Telefono</label>
                                 <div class="input-group">
                                     <div class="col-md-12">
-                                      <input aria-describedby="basic-addon2" formControlName="telefono" appSoloNumero [class.is-invalid]="canpoTelefono.invalid && canpoTelefono.dirty" cFormControl/>
+                                      <input aria-describedby="basic-addon2" [maxlength]="9" formControlName="telefono" appSoloNumero [class.is-invalid]="canpoTelefono.invalid && canpoTelefono.touched" cFormControl/>
                                       <div class="invalid-feedback" *ngIf="canpoTelefono.hasError('minlength')">Minimo debete tener 9 digitos</div>
                                       <div class="invalid-feedback" *ngIf="canpoTelefono.hasError('maxlength')">Maximo debete tener 9 digitos</div>
                                     </div>
@@ -107,7 +107,7 @@
                   <c-row>
                     <c-col md="12" style="display: flex; justify-content: flex-end;">
                       <el-button size="small" type="danger"  (click)="modalService.dismissAll()">Cerrar</el-button>
-                      <el-button size="small" type="success" (click)="guardar()" [elDisabled]="form.invalid">
+                      <el-button size="small" type="success" (click)="guardar()"  >
                         <span *ngIf="!isSave">Guardar</span>
                         <i *ngIf="isSave" class="fas fa-spinner fa-spin"></i>
                       </el-button>  

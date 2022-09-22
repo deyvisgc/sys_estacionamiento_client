@@ -14,24 +14,36 @@ export class ListUsersComponent implements OnInit {
   list: any[] = []
   title = ''
   response: UsuarioRequest
+  isRol = false 
+  rol: any[] = []
+  page = 0
+  size = 10
+  order = 'id'
+  asc = true
+  isFirst = false
+  isLast = false
+  totalPages: Array<number>
   constructor(private modalService: NgbModal, private serviceAdmin: AdminService) { }
 
   ngOnInit(): void {
     this.fetchUsers()
   }
-  openModal(model: any) {
+  openModal(model: any): void  {
     this.response = null
     this.title = 'Nuevo Usuario'
     this.modalService.open(model, {size: 'lg'})
   }
-  fetchUsers() {
-    this.serviceAdmin.getUsuario().subscribe(res => {
-      this.list = res
+  fetchUsers(): void  {
+    this.serviceAdmin.getUsuario(this.page, this.size, this.order, this.asc).subscribe(res => {
+      this.list = res.content
+      this.isFirst = res.first
+      this.isLast = res.last
+      this.totalPages = new Array(res["totalPages"])
     }, error => {
       MethodComuns.toastNotificacion('error', error.message)
     })
   }
-  edit(model: any, id:number) {
+  edit(model: any, id:number): void  {
     this.serviceAdmin.getById(id).subscribe(res => {
       this.response = res
       this.title = 'Actualizar Usuario'
@@ -40,7 +52,15 @@ export class ListUsersComponent implements OnInit {
       MethodComuns.toastNotificacion('error', error.message)
     })
   }
-  delete(id:number) {
+  verRol(id:number): void  {
+    this.serviceAdmin.getRolByIdUsers(id).subscribe(res => {
+      this.rol = res
+    }, error => {
+      MethodComuns.toastNotificacion('error', error.message)
+    }, () => {
+    })
+  }
+  delete(id:number): void  {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -78,5 +98,30 @@ export class ListUsersComponent implements OnInit {
           })
         }
       });
+  }
+  
+  sort(): void {
+    this.asc = !this.asc;
+    this.fetchUsers();
+  }
+  rewind(): void  {
+    if (!this.isFirst) {
+      this.page--
+      this.fetchUsers()
+    }
+  }
+  setPage(page: number): void {
+    this.page = page
+    this.fetchUsers()
+  }
+  forward (): void  {
+    if (!this.isLast) {
+      this.page++
+      this.fetchUsers()
+    }
+  }
+  setOrder(order: string): void {
+    this.order = order;
+    this.fetchUsers();
   }
 }

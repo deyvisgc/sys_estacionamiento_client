@@ -2,7 +2,7 @@ import { environment } from "../../../../../environments/environment"
 import { GruposPath } from "./grupos_path"
 export class UriConstante {
   //Modulo Admin
-  public static readonly LOGIN = environment.host + 'login'
+  public static readonly LOGIN = "http://localhost:8085/galaxy-parqueo/api/" + 'login'
 
   public static readonly USUARIO_BUSCAR_DNI = environment.host + GruposPath.USUARIO + 'search-reniec/{dni}'
   public static readonly USUARIO = environment.host + GruposPath.USUARIO

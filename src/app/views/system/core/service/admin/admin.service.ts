@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UriConstante } from '../../constantes/uri.constants';
@@ -21,12 +21,23 @@ export class AdminService {
   update (usuario: UsuarioRequest): Observable<RespuestaResponse> {
     return this.httpp.put<RespuestaResponse>(UriConstante.USUARIO + usuario.id, usuario)
   }
-  getUsuario (): Observable<any> {
-    return this.httpp.get(UriConstante.USUARIO)
+  getUsuario (page: number,  size: number, order: string, asc: boolean): Observable<any> {
+    const params = new HttpParams()
+    .set("page", page)
+    .set("size", size)
+    .set("order", order)
+    .set("asc", asc)
+    return this.httpp.get(UriConstante.USUARIO, {params: params})
   }
   getById (id: number): Observable<any> {
     const URI = UriConstante.GETBYID.replace('{id}', id.toString())
     return this.httpp.get(URI)
+  }
+  getRol (): Observable<any> {
+    return this.httpp.get(UriConstante.USUARIO + 'rol')
+  }
+  getRolByIdUsers (id: number): Observable<any> {
+    return this.httpp.get(UriConstante.USUARIO + 'users-rol/' + id)
   }
   delete (id: number): Observable<RespuestaResponse> {
     const URI = UriConstante.DELETE.replace('{id}', id.toString())

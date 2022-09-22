@@ -4,5 +4,6 @@ export interface PersonaRequest {
     phone?: string,
     number?:string,
     addres?: string,
+    gmail?: string,
     type_person: string
 }

@@ -1,9 +1,9 @@
 import { PersonaRequest } from "./persona.request";
-
+import { RoleRequest } from "./role.request";
 export interface UsuarioRequest {
     id?: number,
-    email: string,
+    user_name: string,
     password:string,
-    role:string,
-    person: PersonaRequest
+    person: PersonaRequest,
+    role: any
 }

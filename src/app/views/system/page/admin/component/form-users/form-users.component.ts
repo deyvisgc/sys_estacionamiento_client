@@ -14,6 +14,7 @@ import { PersonaRequest } from '../../../../core/request/persona.request';
 export class FormUsersComponent implements OnInit {
   form: FormGroup
   @Input() title:string
+  @Input() isRol: boolean
   @Input() usuario: UsuarioRequest
   @Output() list = new EventEmitter()
   isSearch = false
@@ -23,47 +24,66 @@ export class FormUsersComponent implements OnInit {
   count = 0
   limit = 9
   isEdit = false
-  perfil = [
-    {
-      name: "Administrador",
-      id: "1"
-    },
-    {
-      name: "Empleado",
-      id: "2"
-    }
-  ]
+  rol: any[] = []
+  rol2: any[] = []
   constructor(public modalService: NgbModal, private fb: FormBuilder, private serviceAdmin: AdminService) {
     this.validateForm()
   }
   ngOnInit(): void {
+    this.getRol()
     if (this.usuario && Object.keys(this.usuario).length > 0 && this.usuario.id) {
       this.edit()
       this.isEdit = true
     }
   }
+  getRol() {
+    this.serviceAdmin.getRol().subscribe(res => {
+      this.rol = res
+    }, error => {
+      MethodComuns.toastNotificacion('error', error.message)
+    }, () => {
+    })
+  }
   edit() {
+    const rol = this.usuario.role.map((e: any) => {
+      return e.id
+    });
+    console.log("rol", rol)
     this.form.patchValue({
-      correo: this.usuario.email,
-      perfil: this.usuario.role.toString(),
+      id: this.usuario.id,
+      user_name: this.usuario.user_name,
       dni: this.usuario.person.number,
       nombre: this.usuario.person.name,
       telefono: this.usuario.person.phone,
       direccion: this.usuario.person.addres,
+      rol: rol,
       type_person: "1",
     })
   }
   validateForm () {
     this.form = this.fb.group({
-      correo: [null, [Validators.required, Validators.email]],
+      id: [null],
+      user_name: [null, Validators.required],
       //password: [null, [Validators.required]],
-      password: [null],
-      perfil: [null, [Validators.required]],
+      password: [null, Validators.required],
+      rol: [null, [Validators.required]],
       dni: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
       nombre: [null, [Validators.required]],
       telefono: [null, [Validators.minLength(9), Validators.maxLength(9)]],
       direccion: [null],
     })
+    this.form.valueChanges.subscribe(res => {
+      if (res.id) {
+        this.canpoPassword.setValidators(null)
+      } else {
+        this.canpoPassword.setValidators(Validators.required)
+      }
+      
+      this.canpoPassword.updateValueAndValidity({ emitEvent: false })
+    })
+  }
+  get canpoUsername() {
+    return this.form.get("user_name")
   }
   get canpoCorreo() {
     return this.form.get("correo")
@@ -71,8 +91,8 @@ export class FormUsersComponent implements OnInit {
   get canpoPassword() {
     return this.form.get("password")
   }
-  get canpoPerfil() {
-    return this.form.get("perfil")
+  get canpoRol() {
+    return this.form.get("rol")
   }
   get canpoDni() {
     return this.form.get("dni")
@@ -91,14 +111,20 @@ export class FormUsersComponent implements OnInit {
       addres: this.form.get("direccion").value,
       type_person: '0'
     }
-    const request : UsuarioRequest = {
-      email: this.canpoCorreo.value,
-      password: this.canpoPassword.value,
-      role: this.canpoPerfil.value,
-      person: persona
+    let rol = []
+    if(this.canpoRol.value) {
+       rol = this.canpoRol.value.map((e: any) => {
+        return { id: e}
+      });
     }
-    this.isSave = true
+    const request : UsuarioRequest = {
+      user_name: this.canpoUsername.value,
+      password: this.canpoPassword.value,
+      person: persona,
+      role: rol
+    }
     if(this.form.valid) {
+      this.isSave = true
       if (this.usuario && Object.keys(this.usuario).length > 0 && this.usuario.id) {
         request.id = this.usuario.id
         this.update(request)
