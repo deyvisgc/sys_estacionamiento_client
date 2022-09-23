@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 import { DashboardChartsData, IChartProps } from './dashboard-charts-data';
-
+import { ReporteService } from './../system/core/service/reporte/reporte.service';
+import { MethodComuns } from '../system/utils/method';
 interface IUser {
   name: string;
   state: string;
@@ -22,9 +23,42 @@ interface IUser {
   styleUrls: ['dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  constructor(private chartsData: DashboardChartsData) {
+  totalesReport = {
+    totalIngreso : 0,
+    totalUsuario : 0,
+    totalGanacia : 0.0,
+    nuevosIngresos : 0,
+    totalComprobantes : 0
   }
-
+  porcentaje = {
+    cliente : 0,
+    usuario : 0,
+    ganancia : 0.0,
+    nuevosIngresos : 0,
+    comprobantes : 0
+  }
+  limitTotales = {
+    cliente : 200,
+    usuario : 100,
+    ganancia : 10000,
+    nuevosIngresos : 100,
+    comprobantes : 200
+  }
+  ingresosTotalesChart: number[] = []
+  ingresos: any
+  constructor(private chartsData: DashboardChartsData, private reportService: ReporteService) {
+  }
+  totales = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label: 'GitHub Commits',
+        borderWidth: 1,
+        backgroundColor: '#f87979',
+        data: [40, 20, 12, 39, 10, 80, 40]
+      }
+    ]
+  };
   public users: IUser[] = [
     {
       name: 'Yiorgos Avraamu',
@@ -113,6 +147,12 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.initCharts();
+    this.getTotalCliente()
+    this.getTotalUsuario()
+    this.getTotalGanancias()
+    this.getTotalNuevosIngresos()
+    this.getTotalComprobantes()
+    this.getTotalClienteXmes()
   }
 
   initCharts(): void {
@@ -123,5 +163,74 @@ export class DashboardComponent implements OnInit {
     this.trafficRadioGroup.setValue({ trafficRadio: value });
     this.chartsData.initMainChart(value);
     this.initCharts();
+  }
+
+  getTotalCliente() {
+    this.reportService.getTotalCliente().subscribe(res => {
+
+      this.totalesReport.totalIngreso = res
+      this.porcentaje.cliente = (res / this.limitTotales.cliente) * 100
+    }, error => {
+      MethodComuns.toastNotificacion('error', error.message)
+    }, () => {
+    })
+  }
+  getTotalUsuario() {
+    this.reportService.getTotalUsuario().subscribe(res => {
+      this.totalesReport.totalUsuario = res
+      this.porcentaje.usuario = (res / this.limitTotales.usuario) * 100
+    }, error => {
+      MethodComuns.toastNotificacion('error', error.message)
+    }, () => {
+    })
+  }
+  getTotalGanancias() {
+    this.reportService.getTotalGanancias().subscribe(res => {
+      this.totalesReport.totalGanacia = res
+      this.porcentaje.ganancia = Math.round((res / this.limitTotales.ganancia) * 100)
+    }, error => {
+      MethodComuns.toastNotificacion('error', error.message)
+    }, () => {
+    })
+  }
+  getTotalNuevosIngresos() {
+    this.reportService.getTotalNuevosIngresos().subscribe(res => {
+      this.totalesReport.nuevosIngresos = res
+      this.porcentaje.nuevosIngresos = (res / this.limitTotales.nuevosIngresos) * 100
+    }, error => {
+      MethodComuns.toastNotificacion('error', error.message)
+    }, () => {
+    })
+  }
+  getTotalComprobantes() {
+    this.reportService.getTotalComprobantes().subscribe(res => {
+      this.totalesReport.totalComprobantes = res
+      this.porcentaje.comprobantes = (res / this.limitTotales.comprobantes) * 100
+    }, error => {
+      MethodComuns.toastNotificacion('error', error.message)
+    }, () => {
+    })
+  }
+  getTotalClienteXmes() {
+    this.reportService.getTotalClienteXmes().subscribe(res => {
+      if (res && res.length > 0) {
+        this.ingresosTotalesChart = res
+        console.log(this.ingresosTotalesChart)
+        this.ingresos = {
+          labels: ['Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+          datasets: [
+            {
+              label: 'Ingresos',
+              backgroundColor: "#3399ff",
+              borderWidth: 1,
+              data: this.ingresosTotalesChart
+            }
+          ]
+        };
+      }
+    }, error => {
+      MethodComuns.toastNotificacion('error', error.message)
+    }, () => {
+    })
   }
 }

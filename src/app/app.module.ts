@@ -50,6 +50,7 @@ import {ErrorInterceptor} from "../app/views/system/core/helpers/error.intercept
 import {JwtRequestInterceptor} from "./views/system/core/helpers/jwt-request.interceptor";
 import {JwtIResponsenterceptor} from "../app/views/system/core/helpers/jwt-response.interceptor";
 import { LoginComponent } from './views/system/page/auth/login/login.component';
+import { Page404Component } from './views/system/page/auth/page404/page404.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
@@ -61,7 +62,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS, LoginComponent],
+  declarations: [AppComponent, ...APP_CONTAINERS, LoginComponent, Page404Component],
   imports: [
     FormsModule,
     HttpClientModule,

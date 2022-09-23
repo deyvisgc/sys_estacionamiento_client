@@ -45,4 +45,5 @@ import { WidgetsModule } from '../widgets/widgets.module';
   declarations: [DashboardComponent]
 })
 export class DashboardModule {
+  
 }

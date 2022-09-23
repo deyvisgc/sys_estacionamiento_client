@@ -6,6 +6,7 @@ import { MethodComuns } from '../../utils/method';
 
 import { Router } from '@angular/router';
 import { LoginService } from '../service/auth/login.service';
+import { KeySession } from '../constantes/key_session';
 @Injectable()
 export class JwtIResponsenterceptor implements HttpInterceptor {
     constructor(private router: Router, private authService: LoginService) { }
@@ -19,6 +20,7 @@ export class JwtIResponsenterceptor implements HttpInterceptor {
                 const token = event.headers.get('Authorization').split(" ")
                 MethodComuns.toastNotificacion('success', "Bienvenido al Sistema de establecimiento")
                 this.authService.addToken(token[2])
+                this.authService.addAuthorites(token[2])
               }
             return null;
           }

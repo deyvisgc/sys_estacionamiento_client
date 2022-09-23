@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/views/system/core/service/auth/login.service';
 
 import { navItems } from './_nav';
 
@@ -6,13 +7,19 @@ import { navItems } from './_nav';
   selector: 'app-dashboard',
   templateUrl: './default-layout.component.html',
 })
-export class DefaultLayoutComponent {
+export class DefaultLayoutComponent implements OnInit  {
 
   public navItems = navItems;
-
+  usuario: any
   public perfectScrollbarConfig = {
     suppressScrollX: true,
   };
 
-  constructor() {}
+  constructor(private loginService: LoginService) {}
+  ngOnInit(): void {
+    const token = this.loginService.getUsers()
+    this.usuario = token.username
+  }
+
+
 }

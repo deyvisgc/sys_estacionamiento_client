@@ -5,6 +5,7 @@
   id="sidebar"
   visible
 >
+
   <c-sidebar-brand
     [brandFull]="{
       src: 'assets/img/brand/coreui-angular.svg',
@@ -21,6 +22,19 @@
     routerLink="./"
   >
   </c-sidebar-brand>
+  <div class="d-flex justify-content-center align-content-center mt-2">
+    <c-avatar
+    cTextColor="primary"
+    shape="rounded-1"
+    size="md"
+    src="./assets/img/avatars/3.jpg"
+    status="success"
+  >
+  </c-avatar>
+  </div>
+  <div style="display: flex; justify-content: center;font-size: 15px;font-family: inherit;">
+    <span>{{usuario}}</span>
+  </div>
     <perfect-scrollbar [config]="perfectScrollbarConfig">
   <!--  [perfectScrollbar]="perfectScrollbarConfig"-->
   <c-sidebar-nav

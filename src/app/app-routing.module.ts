@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DefaultLayoutComponent } from './containers';
 import { LoginComponent } from './views/system/page/auth/login/login.component';
+import { Page404Component } from './views/system/page/auth/page404/page404.component';
 import { SharedSystemModule } from './views/system/shared-system/shared-system.module';
 
 const routes: Routes = [
@@ -85,6 +86,13 @@ const routes: Routes = [
     component: LoginComponent,
     data: {
       title: 'Login Page'
+    }
+  },
+  {
+    path: 'not-autorized',
+    component: Page404Component,
+    data: {
+      title: 'Page not authorized'
     }
   },
   {path: '**', redirectTo: 'dashboard'}

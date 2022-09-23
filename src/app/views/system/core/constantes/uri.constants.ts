@@ -17,4 +17,13 @@ export class UriConstante {
 
     public static readonly DELETEVEHICULO = environment.host + GruposPath.PARQUEO + '{id}'
     public static readonly BUSCARXCODIGOOPERACION = environment.host + GruposPath.PARQUEO + 'search-code-operacion'
+
+    // REPORTES
+
+    public static readonly REPORTET_TOTAL_CLIENTES = environment.host + GruposPath.REPORTES + 'total-client'
+    public static readonly REPORTET_TOTAL_USUARIO = environment.host + GruposPath.REPORTES + 'total-users'
+    public static readonly REPORTET_TOTAL_GANANCIAS = environment.host + GruposPath.REPORTES + 'total-ganancia'
+    public static readonly REPORTET_TOTAL_NUEVO_INGRESOS = environment.host + GruposPath.REPORTES + 'total-ingresos-dia'
+    public static readonly REPORTET_TOTAL_COMPROBANTES = environment.host + GruposPath.REPORTES + 'total-comprobante'
+    public static readonly REPORTET_TOTAL_CLIENTES_MES = environment.host + GruposPath.REPORTES + 'total-ingresos_mes'
 }

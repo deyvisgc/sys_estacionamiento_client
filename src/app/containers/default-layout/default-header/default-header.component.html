@@ -70,7 +70,7 @@
         cTextColor="primary"
         shape="rounded-1"
         size="md"
-        src="./assets/img/avatars/8.jpg"
+        src="./assets/img/avatars/3.jpg"
         status="success"
       >
       </c-avatar>
@@ -153,9 +153,9 @@
         <hr cDropdownDivider/>
       </li>
       <li>
-        <a routerLink="./" cDropdownItem>
+        <a (click)="logOut()" style="cursor: pointer;" cDropdownItem>
           <svg cIcon class="me-2" name="cilLockLocked"></svg>
-          Lock Account
+          Cerrar sesión
         </a>
       </li>
       <li></li>

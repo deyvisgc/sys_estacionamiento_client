@@ -4,6 +4,7 @@ import {MethodComuns} from "../../../../utils/method";
 import {AdminService} from "../../../../core/service/admin/admin.service"
 import { UsuarioRequest } from '../../../../core/request/usuario.request';
 import Swal from 'sweetalert2';
+import { LoginService } from 'src/app/views/system/core/service/auth/login.service';
 @Component({
   selector: 'app-list-users',
   templateUrl: './list-users.component.html',
@@ -23,10 +24,12 @@ export class ListUsersComponent implements OnInit {
   isFirst = false
   isLast = false
   totalPages: Array<number>
-  constructor(private modalService: NgbModal, private serviceAdmin: AdminService) { }
+  isAdmin = false
+  constructor(private modalService: NgbModal, private serviceAdmin: AdminService, private tokenService: LoginService) { }
 
   ngOnInit(): void {
     this.fetchUsers()
+    this.isAdmin = this.tokenService.isAdmin()
   }
   openModal(model: any): void  {
     this.response = null

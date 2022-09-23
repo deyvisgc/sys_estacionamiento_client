@@ -3,7 +3,7 @@
       <c-card class="mb-4">
         <c-card-header class="text-white" style="background-color:  #3399ff; display: flex; justify-content: space-between;">
             <strong>Listado de Usuarios</strong>
-            <el-button type="success" (click)="openModal(modalUsuario)" >Nuevo</el-button>
+            <el-button type="success" (click)="openModal(modalUsuario)" *ngIf="isAdmin" >Nuevo</el-button>
         </c-card-header>
         <c-card-body>
           <div style="display: flex; justify-content: flex-end;">
@@ -63,8 +63,8 @@
                 <td>{{item.person.number}}</td>
                 <td>{{item.person.addres}}</td>
                 <td>
-                  <el-button size="mini" type="primary" icon="edit" (click)="edit(modalUsuario, item.id)"></el-button>
-                  <el-button size="mini" type="danger" icon="delete" (click)="delete(item.id)"></el-button>
+                  <el-button size="mini" type="primary" icon="edit" *ngIf="isAdmin" (click)="edit(modalUsuario, item.id)"></el-button>
+                  <el-button size="mini" type="danger" icon="delete" *ngIf="isAdmin" (click)="delete(item.id)"></el-button>
                 </td>
               </tr>
               <!-- <div *ngIf="result.length === 0">

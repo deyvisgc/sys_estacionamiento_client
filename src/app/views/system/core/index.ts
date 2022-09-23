@@ -15,4 +15,5 @@ export * from './service/admin/admin.service'
 export * from './service/parqueo/parqueo.service'
 export * from './service/parqueo/tipo-vehiculo.service'
 export * from './service/auth/login.service'
+export * from './service/reporte/reporte.service'
 
