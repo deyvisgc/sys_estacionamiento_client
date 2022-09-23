@@ -4,6 +4,8 @@ import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { DashboardChartsData, IChartProps } from './dashboard-charts-data';
 import { ReporteService } from './../system/core/service/reporte/reporte.service';
 import { MethodComuns } from '../system/utils/method';
+import { ChartEvent } from 'chart.js'
+
 interface IUser {
   name: string;
   state: string;
@@ -46,6 +48,7 @@ export class DashboardComponent implements OnInit {
   }
   ingresos: any
   ganancias: any
+  mesesLabel: string[] = ['Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
   constructor(private chartsData: DashboardChartsData, private reportService: ReporteService) {
   }
 
@@ -206,14 +209,27 @@ export class DashboardComponent implements OnInit {
     this.reportService.getTotalClienteXmes().subscribe(res => {
       if (res && res.length > 0) {
         this.ingresos = {
-          labels: ['Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+          labels: this.mesesLabel,
           datasets: [
             {
               label: 'Ingresos',
-              backgroundColor: "#3399ff",
+              //backgroundColor: "#3399ff",
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
+              ],
+          
               borderWidth: 1,
-              data: res
-            }
+              data: res,
+              options: {
+                onClick: this.Function.bind(this),
+              },
+            },
           ]
         };
       }
@@ -222,12 +238,16 @@ export class DashboardComponent implements OnInit {
     }, () => {
     })
   }
+  Function(event: any, array: any) {
+    console.log(event)
+    //let clickedElement = this.doughnutChart.getElementAtEvent(event);
+ }
   getTotalGananciasXmes() {
     this.reportService.getTotalGananciasXMes().subscribe(res => {
       if (res && res.length > 0) {
         // this.gananciasTotalesChart = res
         this.ganancias = {
-          labels: ['Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+          labels: this.mesesLabel,
           datasets: [
             {
               label: 'Ganancias',
@@ -237,11 +257,31 @@ export class DashboardComponent implements OnInit {
             }
           ]
         };
+        // this.options = {
+        //   responsive: true,
+        //   onClick: (event: any) => {
+        //     console.log(event)
+        //     // let point = Chart.helpers.getRelativePosition(event, subPerf.chart);
+        //     // let xIndex = subPerf.scales['x-axis-0'].getValueForPixel(point.x);
+        //     // let label = subPerf.data.labels[xIndex];
+        //     //console.log(label + ' at index ' + xIndex);
+        //   },
+        //   scales: {
+        //     yAxes: [{
+        //       ticks: {
+        //         beginAtZero: true
+        //       }
+        //     }]
+        //   }
+        // }
         
       }
     }, error => {
       MethodComuns.toastNotificacion('error', error.message)
     }, () => {
     })
+  }
+  showData(e: any) {
+    alert(this.mesesLabel[e[0].index])
   }
 }
