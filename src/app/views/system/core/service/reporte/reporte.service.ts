@@ -27,4 +27,7 @@ export class ReporteService {
   getTotalClienteXmes(): Observable<any>  {
     return this.http.get(UriConstante.REPORTET_TOTAL_CLIENTES_MES)
   }
+  getTotalGananciasXMes(): Observable<any>  {
+    return this.http.get(UriConstante.REPORTET_TOTAL_GANANCIAS_MES)
+  }
 }

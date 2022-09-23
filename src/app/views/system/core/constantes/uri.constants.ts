@@ -26,4 +26,5 @@ export class UriConstante {
     public static readonly REPORTET_TOTAL_NUEVO_INGRESOS = environment.host + GruposPath.REPORTES + 'total-ingresos-dia'
     public static readonly REPORTET_TOTAL_COMPROBANTES = environment.host + GruposPath.REPORTES + 'total-comprobante'
     public static readonly REPORTET_TOTAL_CLIENTES_MES = environment.host + GruposPath.REPORTES + 'total-ingresos_mes'
+    public static readonly REPORTET_TOTAL_GANANCIAS_MES = environment.host + GruposPath.REPORTES + 'total-ganancias-mes'
 }

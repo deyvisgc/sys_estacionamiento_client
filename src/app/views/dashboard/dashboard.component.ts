@@ -44,21 +44,11 @@ export class DashboardComponent implements OnInit {
     nuevosIngresos : 100,
     comprobantes : 200
   }
-  ingresosTotalesChart: number[] = []
   ingresos: any
+  ganancias: any
   constructor(private chartsData: DashboardChartsData, private reportService: ReporteService) {
   }
-  totales = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-      {
-        label: 'GitHub Commits',
-        borderWidth: 1,
-        backgroundColor: '#f87979',
-        data: [40, 20, 12, 39, 10, 80, 40]
-      }
-    ]
-  };
+
   public users: IUser[] = [
     {
       name: 'Yiorgos Avraamu',
@@ -146,13 +136,14 @@ export class DashboardComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.getTotalClienteXmes()
+    this.getTotalGananciasXmes()
     this.initCharts();
     this.getTotalCliente()
     this.getTotalUsuario()
     this.getTotalGanancias()
     this.getTotalNuevosIngresos()
     this.getTotalComprobantes()
-    this.getTotalClienteXmes()
   }
 
   initCharts(): void {
@@ -214,8 +205,6 @@ export class DashboardComponent implements OnInit {
   getTotalClienteXmes() {
     this.reportService.getTotalClienteXmes().subscribe(res => {
       if (res && res.length > 0) {
-        this.ingresosTotalesChart = res
-        console.log(this.ingresosTotalesChart)
         this.ingresos = {
           labels: ['Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
           datasets: [
@@ -223,10 +212,32 @@ export class DashboardComponent implements OnInit {
               label: 'Ingresos',
               backgroundColor: "#3399ff",
               borderWidth: 1,
-              data: this.ingresosTotalesChart
+              data: res
             }
           ]
         };
+      }
+    }, error => {
+      MethodComuns.toastNotificacion('error', error.message)
+    }, () => {
+    })
+  }
+  getTotalGananciasXmes() {
+    this.reportService.getTotalGananciasXMes().subscribe(res => {
+      if (res && res.length > 0) {
+        // this.gananciasTotalesChart = res
+        this.ganancias = {
+          labels: ['Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+          datasets: [
+            {
+              label: 'Ganancias',
+              borderWidth: 1,
+              backgroundColor: '#2eb85c',
+              data: res
+            }
+          ]
+        };
+        
       }
     }, error => {
       MethodComuns.toastNotificacion('error', error.message)
