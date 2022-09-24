@@ -1,0 +1,97 @@
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header class="text-white" style="background-color:  #3399ff; display: flex; justify-content: space-between;">
+            <strong>Listado de Usuarios</strong>
+            <el-button type="primary" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed">Filtros Avanzados</el-button>
+        </c-card-header>
+        <p></p>
+          <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" style="font-size: 10px; padding: 10px">
+            <div class="card">
+              <div class="card-body" >
+                <c-row>
+                  <c-col md="2">
+                    <div class="input-group">
+                        <div class="col-md-12">
+                          <input aria-describedby="basic-addon2" cFormControl m/>
+                        </div>
+                    </div>
+                </c-col>
+                <c-col md="3">
+                  <div class="input-group">
+                      <div class="col-md-12">
+                        <el-button type="primary" [attr.aria-expanded]="!isCollapsed">Limpiar</el-button>
+                        <el-button type="warning" [attr.aria-expanded]="!isCollapsed">Refrescar</el-button>
+                      </div>
+                  </div>
+              </c-col>
+                <!-- <c-col md="3" *n>
+                  <label for="example-text-input">Buscar Rango de fechas</label>
+                  <div class="input-group">
+                      <div class="col-md-12">
+                        <input aria-describedby="basic-addon2" cFormControl/>
+                      </div>
+                  </div>
+              </c-col> -->
+                </c-row>
+              </div>
+            </div>
+          </div>
+        <c-card-body>
+          <div style="display: flex; justify-content: flex-end;">
+            <c-row>
+              <c-col>
+                <input aria-describedby="basic-addon2" aria-label="Recipient&#39;s username" placeholder="Buscar...." [(ngModel)]="textFind" cFormControl/>
+              </c-col>
+            </c-row>
+          </div>
+          <p></p>
+          <c-card>
+          </c-card>
+          <table cTable class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col" (click)="setOrder('usuario')">Usuario</th>
+              <th scope="col" (click)="setOrder('persona.nombre')">Nombres</th>
+              <th scope="col">Ver Roles</th>
+              <th scope="col">Telefono</th>
+              <th scope="col" (click)="setOrder('persona.numeroDocumento')">DNI</th>
+              <th scope="col">Dirección</th>
+              <th scope="col"></th>
+              <th scope="col"><i class="fas fa-sort" (click)="sort()"></i></th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngIf="(ingresos | filter: textFind) as result">
+              <tr *ngFor="let item of result | filter:textFind; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{item.user_name}}</td>
+                <td>{{item.person.name}}</td>
+                <td>{{item.person.phone}}</td>
+                <td>{{item.person.number}}</td>
+                <td>{{item.person.addres}}</td>
+                <td>
+                </td>
+              </tr>
+              <!-- <div *ngIf="result.length === 0">
+                <i class="fas fa-user-alt-slash fa-3x"></i>
+              </div> -->
+            </ng-container>
+            </tbody>
+          </table>
+          <c-pagination aria-label="Page navigation example">
+            <li cPageItem>
+              <a cPageLink [routerLink] (click)="rewind()" style="cursor: pointer;"><span aria-hidden="true">&laquo;</span></a>
+            </li>
+            <li cPageItem *ngFor="let p of totalPages; let i = index">
+              <a cPageLink [routerLink] [ngClass]="{'active': i === page}" (click)="setPage(i)">{{i + 1}}</a>
+            </li>
+            <li cPageItem>
+              <a cPageLink [routerLink] (click)="forward()" style="cursor: pointer;"><span aria-hidden="true">&raquo;</span></a>
+            </li>
+          </c-pagination>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>

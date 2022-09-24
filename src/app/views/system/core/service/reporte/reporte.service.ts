@@ -24,10 +24,18 @@ export class ReporteService {
   getTotalComprobantes(): Observable<any>  {
     return this.http.get(UriConstante.REPORTET_TOTAL_COMPROBANTES)
   }
-  getTotalClienteXmes(): Observable<any>  {
-    return this.http.get(UriConstante.REPORTET_TOTAL_CLIENTES_MES)
+  getTotalClienteAllmes(): Observable<any>  {
+    return this.http.get(UriConstante.REPORTET_TOTAL_CLIENTES_ALL_MES)
   }
-  getTotalGananciasXMes(): Observable<any>  {
-    return this.http.get(UriConstante.REPORTET_TOTAL_GANANCIAS_MES)
+  getTotalGananciasAllMes(): Observable<any>  {
+    return this.http.get(UriConstante.REPORTET_TOTAL_GANANCIAS_ALL_MES)
+  }
+  getTotalClienteXMes(mes:string): Observable<any>  {
+    const URI = UriConstante.REPORTET_TOTAL_CLIENTES_X_MES.replace('{mes}', mes.toUpperCase())
+    return this.http.get(URI)
+  }
+  getTotalGananciasXMes(mes:string): Observable<any>  {
+    const URI = UriConstante.REPORTET_TOTAL_GANANCIAS_X_MES.replace('{mes}', mes.toUpperCase())
+    return this.http.get(URI)
   }
 }

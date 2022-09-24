@@ -101,11 +101,11 @@
     <div class="d-flex justify-content-around align-items-center mt-5">
       <div>
         <h6>Ingresos 2022</h6>
-        <c-chart [data]="ingresos" (getElementsAtEvent)="showData($event)" [width]="500" [height]="500" type="bar"></c-chart>
+        <c-chart [data]="ingresos" (getElementsAtEvent)="getIngresoXmes($event)" [width]="500" [height]="500" type="bar"></c-chart>
       </div>
       <div>
         <h6>Ganancias 2022</h6>
-        <c-chart [data]="ganancias" (getElementsAtEvent)="showData($event)" class="m-lg-2" type="line" [width]="600" [height]="500"></c-chart>
+        <c-chart [data]="ganancias" (getElementsAtEvent)="getGananciasXmes($event)" class="m-lg-2" type="line" [width]="600" [height]="500"></c-chart>
       </div>
     </div>
   </c-card-footer>

@@ -22,10 +22,6 @@ export const navItems: INavData[] = [
       {
         name: 'Usuario',
         url: '/admin/users'
-      },
-      {
-        name: 'Tipo Vehiculo',
-        url: '/buttons/button-groups'
       }
     ]
   },
@@ -43,13 +39,24 @@ export const navItems: INavData[] = [
         url: '/parqueo/list'
       },
       {
-        name: 'Reportes',
-        url: '/base/breadcrumbs'
+        name: 'Tipo Vehiculo',
+        url: '/buttons/button-groups'
+      }
+    ]
+  },
+  {
+    name: 'Reporte',
+    url: '/base',
+    iconComponent: { name: 'cil-chart-line' },
+    children: [
+      {
+        name: 'Ingresos',
+        url: '/reporte/ingreso'
       },
       {
-        name: 'Cards',
-        url: '/base/cards'
-      },
+        name: 'Ganancias',
+        url: '/reporte/ganancia'
+      }
     ]
   }
   // {
