@@ -6,6 +6,7 @@ import { IngresoComponent } from './ingreso/ingreso.component';
 import { GananciasComponent } from './ganancias/ganancias.component';
 import { SharedSystemModule } from '../../shared-system/shared-system.module';
 import { ElModule } from 'element-angular';
+
 import { FormsModule } from '@angular/forms';
 
 

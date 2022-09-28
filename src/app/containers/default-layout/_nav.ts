@@ -56,7 +56,11 @@ export const navItems: INavData[] = [
       {
         name: 'Ganancias',
         url: '/reporte/ganancia'
-      }
+      },
+      {
+       name: 'Form Control',
+         url: '/forms/form-control'
+       }
     ]
   }
   // {

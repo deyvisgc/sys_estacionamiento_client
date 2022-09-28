@@ -2,37 +2,51 @@
     <c-col xs="12">
       <c-card class="mb-4">
         <c-card-header class="text-white" style="background-color:  #3399ff; display: flex; justify-content: space-between;">
-            <strong>Listado de Usuarios</strong>
-            <el-button type="primary" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed">Filtros Avanzados</el-button>
+            <strong>Listado de Ingresos</strong>
+            <!-- <el-button type="primary" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed">Filtros Avanzados</el-button> -->
         </c-card-header>
         <p></p>
-          <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" style="font-size: 10px; padding: 10px">
+          <div style="font-size: 10px; padding: 10px">
+            <h6>Filtros de Busqueda dinamicos</h6>
             <div class="card">
               <div class="card-body" >
                 <c-row>
-                  <c-col md="2">
+                  <c-col md="4">
                     <div class="input-group">
+                      <label style="font-size: 15px;">Seleccionar rango de fechas a Buscar</label>
                         <div class="col-md-12">
-                          <input aria-describedby="basic-addon2" cFormControl m/>
+                         <p-calendar [showIcon]="true" [(ngModel)]="fechasBuscar" selectionMode="range" (onClose)="search()" [showButtonBar]="true" [style]="{'width': '100%'}" [readonlyInput]="false" inputId="range"></p-calendar>
                         </div>
                     </div>
+                  </c-col>
+                  <c-col md="3">
+                    <div class="input-group">
+                        <div class="col-md-12">
+                          <label style="font-size: 15px;">Tipo Vehiculo</label>
+                          <ng-select  [searchable]="true" [style]="{'width': '100%'}" (change)="this.fetchIngreso()"  [(ngModel)]="filtros.tipoVehiculo" class="custom">
+                            <ng-option [value]="0">Buscar Por....</ng-option>
+                            <ng-option *ngFor="let t of tipoVehiculo"[value]="t.id">{{t.descripcion}}</ng-option>
+                          </ng-select>
+                        </div>
+                    </div>
+                  </c-col>
+                  <c-col md="3">
+                    <div class="input-group input-group-sm d-flex justify-content-around">
+                      <div class="d-flex">
+                        <div class="col-md-12">
+                          <label style="font-size: 15px;">Codigo Operación</label>
+                          <input aria-describedby="basic-addon2" placeholder="Ejemplo: OP0001" (blur)="buscarCode()" [(ngModel)]="filtros.codigoOperacion"  cFormControl m/>
+                        </div>
+                      </div>
+                    </div>
+                  </c-col>
+                <c-col md="2">
+                  <div class="input-group">
+                      <div class="col-md-12">
+                        <el-button type="primary" style="margin-top: 19px" (click)="limpiar()" >Limpiar</el-button>
+                      </div>
+                  </div>
                 </c-col>
-                <c-col md="3">
-                  <div class="input-group">
-                      <div class="col-md-12">
-                        <el-button type="primary" [attr.aria-expanded]="!isCollapsed">Limpiar</el-button>
-                        <el-button type="warning" [attr.aria-expanded]="!isCollapsed">Refrescar</el-button>
-                      </div>
-                  </div>
-              </c-col>
-                <!-- <c-col md="3" *n>
-                  <label for="example-text-input">Buscar Rango de fechas</label>
-                  <div class="input-group">
-                      <div class="col-md-12">
-                        <input aria-describedby="basic-addon2" cFormControl/>
-                      </div>
-                  </div>
-              </c-col> -->
                 </c-row>
               </div>
             </div>
@@ -51,32 +65,41 @@
           <table cTable class="table table-striped">
             <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col" (click)="setOrder('usuario')">Usuario</th>
-              <th scope="col" (click)="setOrder('persona.nombre')">Nombres</th>
-              <th scope="col">Ver Roles</th>
+              <th scope="col" (click)="setOrder('usuario')">Placa</th>
+              <th scope="col" (click)="setOrder('persona.nombre')">Cedula</th>
+              <th scope="col">Code Aperacion</th>
+              <th scope="col">H Ingreso</th>
+              <th scope="col">H Salida</th>
+              <th scope="col">F Ingreso</th>
+              <th scope="col">Cliente</th>
               <th scope="col">Telefono</th>
-              <th scope="col" (click)="setOrder('persona.numeroDocumento')">DNI</th>
-              <th scope="col">Dirección</th>
-              <th scope="col"></th>
+              <th scope="col">Tipo Vehiculo</th>
+              <th scope="col">Estado</th>
               <th scope="col"><i class="fas fa-sort" (click)="sort()"></i></th>
             </tr>
             </thead>
             <tbody>
             <ng-container *ngIf="(ingresos | filter: textFind) as result">
               <tr *ngFor="let item of result | filter:textFind; let i = index">
-                <th scope="row">{{i+1}}</th>
-                <td>{{item.user_name}}</td>
-                <td>{{item.person.name}}</td>
-                <td>{{item.person.phone}}</td>
-                <td>{{item.person.number}}</td>
-                <td>{{item.person.addres}}</td>
+                <td>{{item.placa}}</td>
+                <td>{{item.cedula}}</td>
+                <td>{{item.codigoOperacion}}</td>
+                <td>{{item.horaEntrada}}</td>
+                <td>{{item.horaSalida}}</td>
+                <td>{{item.fechaRegistro | date: 'dd/MM/yyyy'}}</td>
+                <td>{{item.personaVehiculo.nombre}}</td>
+                <td>{{item.personaVehiculo.telefono}}</td>
+                <td>{{item.tipoVehiculo.description}}</td>
+                <td>
+                  <c-badge color="success" *ngIf="+item.estado === 1" shape="rounded-pill">Ingresado</c-badge>
+                  <c-badge color="danger" *ngIf="+item.estado === 0" shape="rounded-pill">Salido</c-badge>
+                </td>
                 <td>
                 </td>
               </tr>
-              <!-- <div *ngIf="result.length === 0">
-                <i class="fas fa-user-alt-slash fa-3x"></i>
-              </div> -->
+                 <div *ngIf="result.length === 0">
+                   <i class="fas fa-user-alt-slash fa-3x"></i>
+                  </div>
             </ng-container>
             </tbody>
           </table>
@@ -85,7 +108,7 @@
               <a cPageLink [routerLink] (click)="rewind()" style="cursor: pointer;"><span aria-hidden="true">&laquo;</span></a>
             </li>
             <li cPageItem *ngFor="let p of totalPages; let i = index">
-              <a cPageLink [routerLink] [ngClass]="{'active': i === page}" (click)="setPage(i)">{{i + 1}}</a>
+              <a cPageLink [routerLink] [ngClass]="{'active': i === paginacion.page}" (click)="setPage(i)">{{i + 1}}</a>
             </li>
             <li cPageItem>
               <a cPageLink [routerLink] (click)="forward()" style="cursor: pointer;"><span aria-hidden="true">&raquo;</span></a>

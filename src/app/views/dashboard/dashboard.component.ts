@@ -4,6 +4,8 @@ import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { DashboardChartsData, IChartProps } from './dashboard-charts-data';
 import { ReporteService } from './../system/core/service/reporte/reporte.service';
 import { MethodComuns } from '../system/utils/method';
+import { NavigationExtras, Router } from '@angular/router';
+import { PaginancionRequest } from '../system/core/request/paginacion.request';
 
 interface IUser {
   name: string;
@@ -45,10 +47,16 @@ export class DashboardComponent implements OnInit {
     nuevosIngresos : 100,
     comprobantes : 200
   }
+  paginacion: PaginancionRequest = {
+    page: 0,
+    size: 10,
+    order: 'id_vehicle',
+    asc: true
+   }
   ingresos: any
   ganancias: any
   mesesLabel: string[] = ['Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-  constructor(private chartsData: DashboardChartsData, private reportService: ReporteService) {
+  constructor(private chartsData: DashboardChartsData, private reportService: ReporteService, private router: Router) {
   }
 
   public users: IUser[] = [
@@ -283,8 +291,13 @@ export class DashboardComponent implements OnInit {
   }
 
   getIngresoXmes(e: any) {
-    this.reportService.getTotalClienteXMes(this.mesesLabel[e[0].index]).subscribe({
+    this.reportService.getTotalClienteXMes(this.mesesLabel[e[0].index], 
+      this.paginacion.page, this.paginacion.size, this.paginacion.order,
+      this.paginacion.asc
+      ).subscribe({
       next: (res) => {
+        const navigationExtras: NavigationExtras = {state: res}
+        this.router.navigate(['/reporte/ingreso'], navigationExtras)
         console.log(res)
       }, 
       error: (err) => {
@@ -296,16 +309,16 @@ export class DashboardComponent implements OnInit {
     })
   }
   getGananciasXmes(e: any) {
-    this.reportService.getTotalClienteXMes(this.mesesLabel[e[0].index]).subscribe({
-      next: (res) => {
-        console.log(res)
-      }, 
-      error: (err) => {
-        MethodComuns.toastNotificacion('error', err.message)
-      },
-      complete: () => {
+    // this.reportService.getTotalClienteXMes(this.mesesLabel[e[0].index]).subscribe({
+    //   next: (res) => {
+    //     console.log(res)
+    //   }, 
+    //   error: (err) => {
+    //     MethodComuns.toastNotificacion('error', err.message)
+    //   },
+    //   complete: () => {
 
-      }
-    })
+    //   }
+    // })
   }
 }

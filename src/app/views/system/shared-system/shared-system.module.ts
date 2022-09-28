@@ -32,6 +32,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FilterPipe } from '../utils/filter.pipe';
 import { SoloNumeroDirective } from '../utils/solo-numero.directive';
 import { NgxPrintModule } from 'ngx-print';
+import {primeNgModule} from "src/app/views/system/app-primeng.module";
 @NgModule({
   declarations: [SoloNumeroDirective, FilterPipe],
   imports: [
@@ -64,7 +65,8 @@ import { NgxPrintModule } from 'ngx-print';
     TableModule,
     NgbModalModule,
     WidgetModule,
-    NgbModule
+    NgbModule,
+    primeNgModule
   ],
   exports: [
     NgxPrintModule,
@@ -98,6 +100,7 @@ import { NgxPrintModule } from 'ngx-print';
     NgbModalModule,
     WidgetModule,
     NgbModule,
+    primeNgModule
   ]
 })
 export class SharedSystemModule { }
