@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  host: 'http://localhost:8085/galaxy-parqueo/api/v1/'
+  hostLocal: 'http://localhost:8085/galaxy-parqueo/api/v1/',
+  host: 'https://parquegalaxy.herokuapp.com/galaxy-parqueo/api/v1/'
 };
 
 /*
