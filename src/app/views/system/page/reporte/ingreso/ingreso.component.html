@@ -55,7 +55,7 @@
           <div style="display: flex; justify-content: flex-end;">
             <c-row>
               <c-col>
-                <input aria-describedby="basic-addon2" aria-label="Recipient&#39;s username" placeholder="Buscar...." [(ngModel)]="textFind" cFormControl/>
+                <input aria-describedby="basic-addon2" aria-label="Recipient&#39;s username" placeholder="Buscar...." [(ngModel)]="term" cFormControl/>
               </c-col>
             </c-row>
           </div>
@@ -79,8 +79,8 @@
             </tr>
             </thead>
             <tbody>
-            <ng-container *ngIf="(ingresos | filter: textFind) as result">
-              <tr *ngFor="let item of result | filter:textFind; let i = index">
+            <ng-container *ngIf="(ingresos |filter:term) as result">
+              <tr *ngFor="let item of result | filter:term; let i = index">
                 <td>{{item.placa}}</td>
                 <td>{{item.cedula}}</td>
                 <td>{{item.codigoOperacion}}</td>

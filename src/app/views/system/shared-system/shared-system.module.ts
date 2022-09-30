@@ -29,12 +29,13 @@ import { IconModule } from '@coreui/icons-angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbCollapse, NgbModal, NgbModalModule, NgbModule, NgbTimepicker, NgbToast, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { FilterPipe } from '../utils/filter.pipe';
+//import { FilterPipe } from '../utils/filter.pipe';
 import { SoloNumeroDirective } from '../utils/solo-numero.directive';
 import { NgxPrintModule } from 'ngx-print';
 import {primeNgModule} from "src/app/views/system/app-primeng.module";
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 @NgModule({
-  declarations: [SoloNumeroDirective, FilterPipe],
+  declarations: [SoloNumeroDirective],
   imports: [
     NgxPrintModule,
     NgSelectModule,
@@ -66,11 +67,11 @@ import {primeNgModule} from "src/app/views/system/app-primeng.module";
     NgbModalModule,
     WidgetModule,
     NgbModule,
-    primeNgModule
+    primeNgModule,
+    Ng2SearchPipeModule
   ],
   exports: [
     NgxPrintModule,
-    FilterPipe,
     SoloNumeroDirective,
     NgSelectModule,
     AccordionModule,
@@ -100,7 +101,8 @@ import {primeNgModule} from "src/app/views/system/app-primeng.module";
     NgbModalModule,
     WidgetModule,
     NgbModule,
-    primeNgModule
+    primeNgModule,
+    Ng2SearchPipeModule
   ]
 })
 export class SharedSystemModule { }

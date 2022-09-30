@@ -15,7 +15,7 @@ dayjs.locale("es");
 export class IngresoComponent implements OnInit {
    valueRequest: any
    fechasBuscar: Date[];
-   textFind: any
+   term: any
    paginacion: PaginancionRequest = {
     page: 0,
     size: 10,
