@@ -298,7 +298,6 @@ export class DashboardComponent implements OnInit {
       next: (res) => {
         const navigationExtras: NavigationExtras = {state: res}
         this.router.navigate(['/reporte/ingreso'], navigationExtras)
-        console.log(res)
       }, 
       error: (err) => {
         MethodComuns.toastNotificacion('error', err.message)
@@ -309,16 +308,20 @@ export class DashboardComponent implements OnInit {
     })
   }
   getGananciasXmes(e: any) {
-    // this.reportService.getTotalClienteXMes(this.mesesLabel[e[0].index]).subscribe({
-    //   next: (res) => {
-    //     console.log(res)
-    //   }, 
-    //   error: (err) => {
-    //     MethodComuns.toastNotificacion('error', err.message)
-    //   },
-    //   complete: () => {
-
-    //   }
-    // })
+    this.paginacion.order = "id_tarifa"
+    this.reportService.getTotalGananciasXMes(this.mesesLabel[e[0].index],
+      this.paginacion.page, this.paginacion.size, this.paginacion.order,
+      this.paginacion.asc
+      ).subscribe({
+      next: (res) => {
+        const navigationExtras: NavigationExtras = {state: res}
+        this.router.navigate(['/reporte/ganancia'], navigationExtras)
+      }, 
+      error: (err) => {
+        MethodComuns.toastNotificacion('error', err.message)
+      },
+      complete: () => {
+      }
+    })
   }
 }

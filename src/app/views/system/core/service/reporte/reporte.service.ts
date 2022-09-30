@@ -52,8 +52,31 @@ export class ReporteService {
     .set("tipoVehiculo", tipoVehiculo)
     return this.http.get(UriConstante.REPORTET_TOTAL_CLIENTES_X_MES_FILTROS, {params: params})
   }
-  getTotalGananciasXMes(mes:string): Observable<any>  {
-    const URI = UriConstante.REPORTET_TOTAL_GANANCIAS_X_MES.replace('{mes}', mes.toUpperCase())
-    return this.http.get(URI)
+  // getTotalGananciasXMes(mes:string): Observable<any>  {
+  //   const URI = UriConstante.REPORTET_TOTAL_GANANCIAS_X_MES.replace('{mes}', mes.toUpperCase())
+  //   return this.http.get(URI)
+  // }
+  getTotalGananciasXMes(mes:string, page: number,  size: number, order: string, asc: boolean): Observable<any>  {
+    const params = new HttpParams()
+    .set("page", page)
+    .set("size", size)
+    .set("order", order)
+    .set("asc", asc)
+    .set("mes", mes.toUpperCase())
+    return this.http.get(UriConstante.REPORTET_TOTAL_GANANCIAS_X_MES, {params: params})
+  }
+  getTotalGananciasAllFilter(page: number,  size: number, order: string, asc: boolean, 
+    fecDesde: string, fecHasta: string, codigoTarifa: string, tipoVehiculo: number, placa: string): Observable<any>  {
+    const params = new HttpParams()
+    .set("page", page)
+    .set("size", size)
+    .set("order", order)
+    .set("asc", asc)
+    .set("fecDesde", fecDesde)
+    .set("fecHasta", fecHasta)
+    .set("codigoTarifa", codigoTarifa)
+    .set("tipoVehiculo", tipoVehiculo)
+    .set("placa", placa)
+    return this.http.get(UriConstante.REPORTET_TOTAL_GANANCIAS_X_MES_FILTROS, {params: params})
   }
 }

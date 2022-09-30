@@ -1,1 +1,153 @@
-<p>ganancias works!</p>
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header class="text-white" style="background-color:  #3399ff; display: flex; justify-content: space-between;">
+            <strong>Listado de Ganancias del 2022</strong>
+            <!-- <el-button type="primary" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed">Filtros Avanzados</el-button> -->
+        </c-card-header>
+        <p></p>
+          <div style="font-size: 10px; padding: 10px">
+            
+            <h6>Filtros de Busqueda dinamicos</h6>
+            <div class="card">
+              <div class="card-body" >
+                <c-row>
+                  <c-col md="3">
+                    <div class="input-group">
+                      <label style="font-size: 15px;">Seleccionar rango de fechas a Buscar</label>
+                        <div class="col-md-12">
+                         <p-calendar [showIcon]="true" [(ngModel)]="fechaBuscar" selectionMode="range" (onClose)="search()" [showButtonBar]="true" [style]="{'width': '100%'}" [readonlyInput]="false" inputId="range"></p-calendar>
+                        </div>
+                    </div>
+                  </c-col>
+                  <c-col md="2">
+                    <div class="input-group input-group-sm d-flex justify-content-around">
+                      <div class="d-flex">
+                        <div class="col-md-12">
+                          <label style="font-size: 15px;">Placa</label>
+                          <input aria-describedby="basic-addon2" (blur)="buscarPlaca()" [(ngModel)]="filtros.placa"  cFormControl m/>
+                        </div>
+                      </div>
+                    </div>
+                  </c-col>
+                  <c-col md="3">
+                    <div class="input-group">
+                        <div class="col-md-12">
+                          <label style="font-size: 15px;">Tipo Vehiculo</label>
+                          <ng-select  [searchable]="true" [style]="{'width': '100%'}" (change)="this.fetchGanancias()" [(ngModel)]="filtros.tipoVehiculo" class="custom">
+                            <ng-option [value]="0">Buscar Por....</ng-option>
+                            <ng-option *ngFor="let t of tipoVehiculo"[value]="t.id">{{t.descripcion}}</ng-option>
+                          </ng-select>
+                        </div>
+                    </div>
+                  </c-col>
+                  <c-col md="2">
+                    <div class="input-group input-group-sm d-flex justify-content-around">
+                      <div class="d-flex">
+                        <div class="col-md-12">
+                          <label style="font-size: 15px;">Codigo Tarifa</label>
+                          <input aria-describedby="basic-addon2" (blur)="buscarCode()" [(ngModel)]="filtros.codigoTarifa"  cFormControl m/>
+                        </div>
+                      </div>
+                    </div>
+                  </c-col>
+                <c-col md="2">
+                  <div class="input-group">
+                      <div class="col-md-12">
+                        <el-button type="primary" style="margin-top: 19px" (click)="limpiar()" >Limpiar</el-button>
+                      </div>
+                  </div>
+                </c-col>
+                </c-row>
+              </div>
+            </div>
+          </div>
+        <c-card-body>
+          <div style="display: flex; justify-content: flex-end;">
+            <c-row>
+              <c-col>
+                <input aria-describedby="basic-addon2" aria-label="Recipient&#39;s username" placeholder="Buscar...." [(ngModel)]="textFind" cFormControl/>
+              </c-col>
+            </c-row>
+          </div>
+          <p></p>
+          <c-card>
+          </c-card>
+          <table cTable class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col" (click)="setOrder('persona.nombre')">Placa Vehiculo</th>
+              <th scope="col" (click)="setOrder('persona.nombre')">Vehiculo</th>
+              <th scope="col" (click)="setOrder('usuario')">Codigo Tarifa</th>
+              <th scope="col" (click)="setOrder('usuario')">Tipo Vehiculo</th>
+              <th scope="col" (click)="setOrder('persona.nombre')">Precio Cochera</th>
+              <th scope="col" (click)="setOrder('persona.nombre')">Total Horas</th>
+              <th scope="col" (click)="setOrder('persona.nombre')">Monto Tarifa</th>
+              <th scope="col" (click)="setOrder('persona.nombre')">Fecha Registro</th>
+              <th scope="col"><i class="fas fa-sort" (click)="sort()"></i></th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngIf="(ganancias | filter: textFind) as result">
+              <tr *ngFor="let item of result | filter:textFind; let i = index">
+                <td>{{item.vehiculoEntity.placa}}</td>
+                <td><button pButton pRipple type="button" icon="pi pi-eye" class="p-button-outlined" (click)="vehiculoXid(item.vehiculoEntity.id)"></button></td>
+                <td>{{item.codigo}}</td>
+                <td>{{item.vehiculoEntity.tipoVehiculo.description}}</td>
+                <td>S/ {{item.vehiculoEntity.tipoVehiculo.price_hour | number: '1.2-2'}}</td>
+                <td>{{item.totalHoras}}</td>
+                <td>S/ {{item.montoPagar | number: '1.2-2'}}</td>
+                <td>{{item.fechaRegistro | date: 'dd/MM/yyyy'}}</td>
+                <td>
+                </td>
+              </tr>
+                 <!-- <div *ngIf="result.length === 0">
+                   <i class="fas fa-user-alt-slash fa-3x"></i>
+                  </div> -->
+            </ng-container>
+            </tbody>
+          </table>
+          <c-pagination aria-label="Page navigation example">
+            <li cPageItem>
+              <a cPageLink [routerLink] (click)="rewind()" style="cursor: pointer;"><span aria-hidden="true">&laquo;</span></a>
+            </li>
+            <li cPageItem *ngFor="let p of totalPages; let i = index">
+              <a cPageLink [routerLink] [ngClass]="{'active': i === paginacion.page}" (click)="setPage(i)">{{i + 1}}</a>
+            </li>
+            <li cPageItem>
+              <a cPageLink [routerLink] (click)="forward()" style="cursor: pointer;"><span aria-hidden="true">&raquo;</span></a>
+            </li>
+          </c-pagination>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+  <p-dialog header="Detalle Vehiculo" [(visible)]="displayBasic" [style]="{width: '50vw'}">
+    <p-table [value]="vehiculo" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Placa</th>
+              <th>Cedula</th>
+              <th>Codigo Operacion</th>
+              <th>Hora Entrada</th>
+              <th>Hora Salida</th>
+              <th>Fecha Ingreso</th>
+              <th>Nombre Cliente</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-vehiculo>
+          <tr>
+              <td>{{vehiculo.license_plate}}</td>
+              <td>{{vehiculo.cedula}}</td>
+              <td>{{vehiculo.code}}</td>
+              <td>{{vehiculo.check_in_time}}</td>
+              <td>{{vehiculo.departure_time}}</td>
+              <td>{{vehiculo.fechaRegistro   | date: 'dd/MM/yyyy'}}</td>
+              <td>{{vehiculo.person.name}}</td>
+          </tr>
+      </ng-template>
+  </p-table>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="displayBasic=false" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

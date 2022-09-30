@@ -34,7 +34,7 @@ export class IngresoComponent implements OnInit {
    ingresos:any[] = []
    tipoVehiculo: any[] = []
   constructor(private router: Router, private reportService: ReporteService, private tipoVehiService: TipoVehiculoService) {
-    const navigation = router.getCurrentNavigation()
+    const navigation = this.router.getCurrentNavigation()
     this.valueRequest = navigation?.extras?.state
     if (this.valueRequest && Object.keys(this.valueRequest).length > 0) {
       this.ingresos = this.valueRequest.content
