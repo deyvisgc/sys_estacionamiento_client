@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { MethodComuns } from '../../../utils/method';
 import { KeySession } from '../../constantes/key_session';
 import { UriConstante } from '../../constantes/uri.constants';
+import { RespuestaResponse } from '../../response/respuesta.request';
 import { LoginRequest } from './../../request/login.request';
 
 @Injectable({
@@ -59,5 +60,17 @@ export class LoginService {
   parseToken(token: string) {
    return MethodComuns.decodeToken(token)
   }
-
+  // CONFIGURACION
+  fetchConfiguracion(): Observable<any> {
+    return this.http.get(UriConstante.CONFIGURACION)
+  }
+  fetchById(id:number): Observable<any> {
+    return this.http.get(UriConstante.CONFIGURACION + id)
+  }
+  saveConfiguracion(api_url: string, api_token: string, type_api: string):Observable<RespuestaResponse> {
+    return this.http.post<RespuestaResponse>(UriConstante.CONFIGURACION, {urlApi: api_url, token: api_token, typeApi: type_api})
+  }
+  updateConfiguracion(id:number, api_url: string, api_token: string, type_api: string) :Observable<RespuestaResponse> {
+    return this.http.put<RespuestaResponse>(UriConstante.CONFIGURACION + id, {urlApi: api_url, token: api_token, typeApi: type_api})
+  }
 }

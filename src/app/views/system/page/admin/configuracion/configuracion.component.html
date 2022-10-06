@@ -1,0 +1,105 @@
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header class="text-white" style="background-color:  #3399ff; display: flex; justify-content: space-between;">
+            <strong>Configuración</strong>
+            <el-button type="success" (click)="openModal()" *ngIf="isAdmin" >Nuevo</el-button>
+        </c-card-header>
+        <c-card-body>
+          <div style="display: flex; justify-content: flex-end;">
+            <c-row>
+              <c-col>
+                <input aria-describedby="basic-addon2" aria-label="Recipient&#39;s username" placeholder="Buscar...." [(ngModel)]="textFind" cFormControl/>
+              </c-col>
+            </c-row>
+          </div>
+          <p></p>
+          <c-card>
+          </c-card>
+          <table cTable class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">URI</th>
+              <th scope="col">TOKEN</th>
+              <th scope="col">TIPO API</th>
+              <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngIf="(list | filter: textFind) as result">
+              <tr *ngFor="let item of result | filter:textFind; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{item.urlApi}}</td>
+                <td>{{item.token}}</td>
+                <td>{{item.typeToken}}</td>
+                <td>
+                  <el-button size="mini" type="primary" icon="edit" *ngIf="isAdmin" (click)="edit(item.id)"></el-button>
+                </td>
+              </tr>
+              <!-- <div *ngIf="result.length === 0">
+                <i class="fas fa-user-alt-slash fa-3x"></i>
+              </div> -->
+            </ng-container>
+            </tbody>
+          </table>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+
+  <p-dialog  [header]="title" [(visible)]="displayPosition" position="top" [modal]="true" [style]="{width: '40vw'}"
+    [draggable]="false" [resizable]="false">
+    <c-row>
+      <c-col xs="12">
+          <c-card class="mb-4">
+              <c-card-body>
+                  <form [formGroup]="form">
+                      <c-row>
+                          <c-col md="9">
+                              <label for="example-text-input">URL</label>
+                              <div class="input-group">
+                                  <div class="col-md-12">
+                                    <input aria-describedby="basic-addon2" formControlName="url" [class.is-invalid]="campoUrl.invalid && campoUrl.touched" cFormControl/>
+                                    <div class="invalid-feedback" *ngIf="campoUrl.hasError('required')">Url es requerido</div>
+                                  </div>
+                              </div>
+                          </c-col>
+                          <c-col md="3">
+                            <label for="example-text-input">TIPO</label>
+                            <div class="input-group">
+                              <ng-select formControlName="typeApi" [style]="{'width': '100%'}"  [class.is-invalid]="campoTipoApi.invalid && campoTipoApi.touched">
+                                <ng-option  value="documento"> Documento</ng-option>
+                                <ng-option  value="otros">Otros</ng-option>
+                              </ng-select>
+                              <div class="invalid-feedback" *ngIf="campoTipoApi.hasError('required')">Tipo Api es requerido</div>
+                            </div>
+                        </c-col>
+                          <p></p>
+                          <c-col md="12">
+                              <label for="example-text-input">TOKEN</label>
+                              <div class="input-group">
+                                  <div class="col-md-12">
+                                    <input aria-describedby="basic-addon2" type="text" formControlName="api_token"  [class.is-invalid]="campoToken.invalid && campoToken.touched" cFormControl/>
+                                    <div class="invalid-feedback" *ngIf="campoToken.hasError('required')">Token es requerido</div>
+                                  </div>
+                              </div>
+                          </c-col>
+                      </c-row>
+                  </form>
+              </c-card-body>
+              <c-card-footer>
+                <c-row>
+                  <c-col md="12" style="display: flex; justify-content: flex-end;">
+                    <el-button size="small" type="danger"  (click)="closeModal()">Cerrar</el-button>
+                    <el-button size="small" type="success" (click)="guardar()"  >
+                      <span *ngIf="!isSave">Guardar</span>
+                      <i *ngIf="isSave" class="fas fa-spinner fa-spin"></i>
+                    </el-button>  
+                  </c-col>
+                </c-row>
+              </c-card-footer>
+          </c-card>
+      </c-col>
+  </c-row>
+</p-dialog>

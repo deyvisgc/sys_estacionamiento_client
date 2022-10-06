@@ -19,9 +19,6 @@ import { ChartjsModule } from '@coreui/angular-chartjs';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
-
-import { WidgetsModule } from '../widgets/widgets.module';
-
 @NgModule({
   imports: [
     DashboardRoutingModule,
@@ -39,8 +36,7 @@ import { WidgetsModule } from '../widgets/widgets.module';
     ButtonGroupModule,
     ChartjsModule,
     AvatarModule,
-    TableModule,
-    WidgetsModule
+    TableModule
   ],
   declarations: [DashboardComponent]
 })

@@ -1,0 +1,109 @@
+<c-row ngPreserveWhitespaces>
+    <c-col xs="12">
+      <c-card class="mb-4">
+        <c-card-header class="text-white" style="background-color:  #3399ff; display: flex; justify-content: space-between;">
+            <strong>Listado de Tipo Vehiculo</strong>
+            <el-button type="success" (click)="openModal()" *ngIf="isAdmin" >Nuevo</el-button>
+        </c-card-header>
+        <c-card-body>
+          <div style="display: flex; justify-content: flex-end;">
+            <c-row>
+              <c-col>
+                <input aria-describedby="basic-addon2" aria-label="Recipient&#39;s username" placeholder="Buscar...." [(ngModel)]="textFind" cFormControl/>
+              </c-col>
+            </c-row>
+          </div>
+          <p></p>
+          <c-card>
+          </c-card>
+          <table cTable class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Precio Establecimiento</th>
+              <th scope="col"></th>
+              <th scope="col"><i class="fas fa-sort" (click)="sort()"></i></th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngIf="(list | filter: textFind) as result">
+              <tr *ngFor="let item of result | filter:textFind; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{item.descripcion}}</td>
+                <td>S/ {{item.precioHora | number: '1.2-2'}}</td>
+                <td>
+                  <el-button size="mini" type="primary" icon="edit" *ngIf="isAdmin" (click)="edit(item.id)"></el-button>
+                  <el-button size="mini" type="danger" icon="delete" *ngIf="isAdmin" (click)="delete(item.id)"></el-button>
+                </td>
+              </tr>
+              <!-- <div *ngIf="result.length === 0">
+                <i class="fas fa-user-alt-slash fa-3x"></i>
+              </div> -->
+            </ng-container>
+            </tbody>
+          </table>
+          <c-pagination aria-label="Page navigation example">
+            <li cPageItem>
+              <a cPageLink [routerLink] (click)="rewind()" style="cursor: pointer;"><span aria-hidden="true">&laquo;</span></a>
+            </li>
+            <li cPageItem *ngFor="let p of totalPages; let i = index">
+              <a cPageLink [routerLink] [ngClass]="{'active': i === page}" (click)="setPage(i)">{{i + 1}}</a>
+            </li>
+            <li cPageItem>
+              <a cPageLink [routerLink] (click)="forward()" style="cursor: pointer;"><span aria-hidden="true">&raquo;</span></a>
+            </li>
+          </c-pagination>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+
+  <p-dialog  [header]="title" [(visible)]="displayPosition" position="top" [modal]="true" [style]="{width: '40vw'}"
+    [draggable]="false" [resizable]="false">
+    <c-row>
+      <c-col xs="12">
+          <c-card class="mb-4">
+              <c-card-body>
+                  <form [formGroup]="form">
+                      <c-row>
+                          <c-col md="6">
+                              <label for="example-text-input">Descripción</label>
+                              <div class="input-group">
+                                  <div class="col-md-12">
+                                    <input aria-describedby="basic-addon2" formControlName="descripcion" [class.is-invalid]="campoDescripcion.invalid && campoDescripcion.touched" cFormControl/>
+                                    <div class="invalid-feedback" *ngIf="campoDescripcion.hasError('required')">Descripción es requerido</div>
+                                  </div>
+                              </div>
+                          </c-col>
+                          <c-col md="6">
+                              <label for="example-text-input">Precio</label>
+                              <div class="input-group">
+                                  <div class="col-md-12">
+                                    <input aria-describedby="basic-addon2" appNumberDecimals type="text" formControlName="precio"  [class.is-invalid]="campoPrecio.invalid && campoPrecio.touched" cFormControl/>
+                                    <div class="invalid-feedback" *ngIf="campoPrecio.hasError('required')">Precio es requerida</div>
+                                    <div class="invalid-feedback" *ngIf="campoPrecio.hasError('min')">Precio debe tener minimo S/ 1.00</div>
+                                  </div>
+                              </div>
+                          </c-col>
+                      </c-row>
+                  </form>
+              </c-card-body>
+              <c-card-footer>
+                <c-row>
+                  <c-col md="12" style="display: flex; justify-content: flex-end;">
+                    <el-button size="small" type="danger"  (click)="closeModal()">Cerrar</el-button>
+                    <el-button size="small" type="success" (click)="guardar()"  >
+                      <span *ngIf="!isSave">Guardar</span>
+                      <i *ngIf="isSave" class="fas fa-spinner fa-spin"></i>
+                    </el-button>  
+                  </c-col>
+                </c-row>
+              </c-card-footer>
+          </c-card>
+      </c-col>
+  </c-row>
+        <!-- <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="displayPosition=false" label="Ok" styleClass="p-button-text"></p-button>
+        </ng-template> -->
+</p-dialog>

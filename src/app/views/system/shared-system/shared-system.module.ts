@@ -31,11 +31,14 @@ import { NgbCollapse, NgbModal, NgbModalModule, NgbModule, NgbTimepicker, NgbToa
 import { NgSelectModule } from '@ng-select/ng-select';
 //import { FilterPipe } from '../utils/filter.pipe';
 import { SoloNumeroDirective } from '../utils/solo-numero.directive';
+import { NumberDecimalsDirective } from '../utils/number-decimals.directive';
 import { NgxPrintModule } from 'ngx-print';
 import {primeNgModule} from "src/app/views/system/app-primeng.module";
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { TagModule } from 'primeng/tag';
+
 @NgModule({
-  declarations: [SoloNumeroDirective],
+  declarations: [SoloNumeroDirective, NumberDecimalsDirective],
   imports: [
     NgxPrintModule,
     NgSelectModule,
@@ -68,11 +71,14 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     WidgetModule,
     NgbModule,
     primeNgModule,
+    TagModule,
+    
     Ng2SearchPipeModule
   ],
   exports: [
     NgxPrintModule,
     SoloNumeroDirective,
+    NumberDecimalsDirective,
     NgSelectModule,
     AccordionModule,
     BadgeModule,
@@ -102,6 +108,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     WidgetModule,
     NgbModule,
     primeNgModule,
+    TagModule,
     Ng2SearchPipeModule
   ]
 })

@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbTimepicker, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { TicketParqueoComponent } from './component/ticket-parqueo/ticket-parqueo.component';
 import { SalidaParqueoComponent } from './component/salida-parqueo/salida-parqueo.component';
+import { TipoVehiculoComponent } from './component/tipo-vehiculo/tipo-vehiculo.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { SalidaParqueoComponent } from './component/salida-parqueo/salida-parque
     ListParqueoComponent,
     IngresoParqueoComponent,
     TicketParqueoComponent,
-    SalidaParqueoComponent
+    SalidaParqueoComponent,
+    TipoVehiculoComponent
   ],
   imports: [
     NgbTimepickerModule,

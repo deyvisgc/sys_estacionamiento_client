@@ -22,6 +22,10 @@ export const navItems: INavData[] = [
       {
         name: 'Usuario',
         url: '/admin/users'
+      },
+      {
+        name: 'Configuración',
+        url: '/admin/config'
       }
     ]
   },
@@ -40,7 +44,7 @@ export const navItems: INavData[] = [
       },
       {
         name: 'Tipo Vehiculo',
-        url: '/buttons/button-groups'
+        url: '/parqueo/tipo-vehiculo'
       }
     ]
   },

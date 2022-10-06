@@ -13,7 +13,7 @@
                                 <label for="example-text-input">Usuario</label>
                                 <div class="input-group">
                                     <div class="col-md-12">
-                                      <input aria-describedby="basic-addon2" formControlName="user_name" [class.is-invalid]="canpoUsername.invalid && canpoUsername.dirty" cFormControl/>
+                                      <input aria-describedby="basic-addon2" formControlName="user_name" [class.is-invalid]="canpoUsername.invalid && canpoUsername.touched" cFormControl/>
                                       <div class="invalid-feedback" *ngIf="canpoUsername.hasError('required')">Usuario es requerido</div>
                                     </div>
                                 </div>

@@ -1,9 +1,9 @@
 import { environment } from "../../../../../environments/environment"
 import { GruposPath } from "./grupos_path"
 export class UriConstante {
+  // public static readonly LOGIN = "https://parquegalaxy.herokuapp.com/galaxy-parqueo/api/" + 'login'
+    public static readonly LOGIN = environment.login
   //Modulo Admin
-  public static readonly LOGIN = "https://parquegalaxy.herokuapp.com/galaxy-parqueo/api/" + 'login'
-
   public static readonly USUARIO_BUSCAR_DNI = environment.host + GruposPath.USUARIO + 'search-reniec/{dni}'
   public static readonly USUARIO = environment.host + GruposPath.USUARIO
   public static readonly GETBYID = environment.host + GruposPath.USUARIO + '{id}'
@@ -12,6 +12,8 @@ export class UriConstante {
     //Modulo Parqueo
     public static readonly PARQUEO = environment.host + GruposPath.PARQUEO
     public static readonly TIPOVEHICULO = environment.host + GruposPath.TIPOVEHICULO
+    public static readonly TIPOVEHICULOBYID = environment.host + GruposPath.TIPOVEHICULO + '{id}'
+    public static readonly TIPOVEHICULO_PAGINACION = environment.host + GruposPath.TIPOVEHICULO + 'all-paginacion'
     public static readonly GETBYIDPARQUEO = environment.host + GruposPath.PARQUEO + '{id}'
     public static readonly SALIDAPARQUEO = environment.host + GruposPath.PARQUEO + 'salida/{codigoOperacion}'
 
@@ -31,4 +33,7 @@ export class UriConstante {
     public static readonly REPORTET_TOTAL_CLIENTES_X_MES_FILTROS = environment.host + GruposPath.REPORTES + 'client-all-filtros/'
     public static readonly REPORTET_TOTAL_GANANCIAS_X_MES = environment.host + GruposPath.REPORTES + 'total-ganancias-mes/'
     public static readonly REPORTET_TOTAL_GANANCIAS_X_MES_FILTROS = environment.host + GruposPath.REPORTES + 'ganancias-all-filtros/'
+
+    // CONFIGURACION
+    public static readonly CONFIGURACION = environment.host + GruposPath.CONFIGURACION
 }

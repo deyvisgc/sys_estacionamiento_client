@@ -29,7 +29,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   exports: [
     TableModule,
     PanelMenuModule,

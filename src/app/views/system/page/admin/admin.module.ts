@@ -8,11 +8,13 @@ import {SharedSystemModule} from "src/app/views/system/shared-system/shared-syst
 import { ElModule } from 'element-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListUsersComponent } from './component/list-users/list-users.component';
+import { ConfiguracionComponent } from './configuracion/configuracion.component';
 
 @NgModule({
   declarations: [
     ListUsersComponent,
-    FormUsersComponent
+    FormUsersComponent,
+    ConfiguracionComponent
   ],
   imports: [
     FormsModule,

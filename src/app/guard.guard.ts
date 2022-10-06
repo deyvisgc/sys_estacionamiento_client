@@ -24,7 +24,7 @@ export class ProGuard implements CanActivate {
         return false;
       }
       if (expectedRol.indexOf(this.realRol) === -1) {
-        this.router.navigate(['/not-autorized']); // envia al login
+        this.router.navigate(['/not-autorized']); // envia no authorizado
         return false;
       }
     return true;
