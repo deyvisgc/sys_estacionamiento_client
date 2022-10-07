@@ -9,8 +9,5 @@ import { Route } from '@angular/router';
 export class Page404Component {
 
   constructor() { }
-  regresar () {
-
-  }
 
 }
