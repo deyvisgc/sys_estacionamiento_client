@@ -22,6 +22,7 @@
               <th scope="col">#</th>
               <th scope="col" (click)="setOrder('usuario')">Usuario</th>
               <th scope="col" (click)="setOrder('persona.nombre')">Nombres</th>
+              <th scope="col" (click)="setOrder('persona.nombre')">Correo</th>
               <th scope="col">Ver Roles</th>
               <th scope="col">Telefono</th>
               <th scope="col" (click)="setOrder('persona.numeroDocumento')">DNI</th>
@@ -36,6 +37,7 @@
                 <th scope="row">{{i+1}}</th>
                 <td>{{item.user_name}}</td>
                 <td>{{item.person.name}}</td>
+                <td>{{item.person.gmail}}</td>
                 <td>
                   <button [cPopover]="popoverHtml"
                   (click)="verRol(item.id)"

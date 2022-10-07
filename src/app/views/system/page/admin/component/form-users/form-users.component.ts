@@ -58,19 +58,20 @@ export class FormUsersComponent implements OnInit {
       direccion: this.usuario.person.addres,
       rol: rol,
       type_person: "1",
+      correo: this.usuario.person.gmail
     })
   }
   validateForm () {
     this.form = this.fb.group({
       id: [null],
       user_name: [null, Validators.required],
-      //password: [null, [Validators.required]],
       password: [null, Validators.required],
       rol: [null, [Validators.required]],
       dni: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
       nombre: [null, [Validators.required]],
       telefono: [null, [Validators.minLength(9), Validators.maxLength(9)]],
       direccion: [null],
+      correo: [null, [Validators.email, Validators.required]]
     })
     this.form.valueChanges.subscribe(res => {
       if (res.id) {
@@ -109,7 +110,8 @@ export class FormUsersComponent implements OnInit {
       number: this.canpoDni.value,
       phone: this.canpoTelefono.value,
       addres: this.form.get("direccion").value,
-      type_person: '0'
+      type_person: '0',
+      gmail: this.canpoCorreo.value
     }
     let rol = []
     if(this.canpoRol.value) {

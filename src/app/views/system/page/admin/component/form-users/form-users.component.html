@@ -76,6 +76,18 @@
                             </c-col>
                             <p *ngIf="!isEdit"></p>
                             <c-col md="4">
+                              <label for="example-text-input">Correo</label>
+                              <div class="input-group">
+                                  <div class="col-md-12">
+                                    <div class="col-md-12">
+                                      <input aria-describedby="basic-addon2" formControlName="correo" [class.is-invalid]="canpoCorreo.invalid && canpoCorreo.touched" cFormControl/>
+                                      <div class="invalid-feedback" *ngIf="canpoCorreo.hasError('required')">Correo es requerido</div>
+                                      <div class="invalid-feedback" *ngIf="canpoCorreo.hasError('email')">Correo debe tener formato valido</div>
+                                    </div>
+                                  </div>
+                              </div>
+                          </c-col>
+                            <c-col md="3">
                                 <label for="example-text-input">Telefono</label>
                                 <div class="input-group">
                                     <div class="col-md-12">
@@ -85,7 +97,6 @@
                                     </div>
                                 </div>
                             </c-col>
-                            <p *ngIf="isEdit"></p>
                             <c-col md="" [ngClass]="{'8': !isEdit, '12': isEdit}">
                                 <label for="example-text-input">Dirección</label>
                                 <div class="input-group">

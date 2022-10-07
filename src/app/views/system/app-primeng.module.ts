@@ -26,8 +26,9 @@ import { CommonModule } from "@angular/common";
 import { ChipsModule } from 'primeng/chips';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
-
-
+import {CardModule} from 'primeng/card';
+import {MessageModule} from 'primeng/message';
+import {PasswordModule} from 'primeng/password';
 @NgModule({
   declarations: [
   ],
@@ -56,7 +57,10 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ChipsModule
+    ChipsModule,
+    CardModule,
+    MessageModule,
+    PasswordModule
   ],
   providers: [DialogService, MessageService, ConfirmationService]
 })

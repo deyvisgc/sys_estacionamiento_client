@@ -51,6 +51,9 @@ import {JwtRequestInterceptor} from "./views/system/core/helpers/jwt-request.int
 import {JwtIResponsenterceptor} from "../app/views/system/core/helpers/jwt-response.interceptor";
 import { LoginComponent } from './views/system/page/auth/login/login.component';
 import { Page404Component } from './views/system/page/auth/page404/page404.component';
+import { PageChangePasswordComponent } from './views/system/page/auth/page-change-password/page-change-password.component';
+import { primeNgModule } from './views/system/app-primeng.module';
+import { ChangePasswordComponent } from './views/system/page/auth/change-password/change-password.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
@@ -62,7 +65,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS, LoginComponent, Page404Component],
+  declarations: [AppComponent, ...APP_CONTAINERS, LoginComponent, Page404Component, PageChangePasswordComponent, ChangePasswordComponent],
   imports: [
     FormsModule,
     HttpClientModule,
@@ -91,7 +94,8 @@ const APP_CONTAINERS = [
     BadgeModule,
     ListGroupModule,
     CardModule,
-    NgbModule
+    NgbModule,
+    primeNgModule
   ],
   providers: [
     {

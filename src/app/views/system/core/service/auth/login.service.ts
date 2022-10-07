@@ -37,8 +37,10 @@ export class LoginService {
     return sessionStorage.getItem(KeySession.TOKEN)
   }
   getUsers (): any {
-    const token = this.parseToken(sessionStorage.getItem(KeySession.TOKEN))
-    return token.data.usuario;
+    if (sessionStorage.getItem(KeySession.TOKEN)) {
+      const token = this.parseToken(sessionStorage.getItem(KeySession.TOKEN))
+      return token.data.usuario;
+    }
   }
   getAuthorites (): string[] {
     this.roles = [];
@@ -72,5 +74,11 @@ export class LoginService {
   }
   updateConfiguracion(id:number, api_url: string, api_token: string, type_api: string) :Observable<RespuestaResponse> {
     return this.http.put<RespuestaResponse>(UriConstante.CONFIGURACION + id, {urlApi: api_url, token: api_token, typeApi: type_api})
+  }
+  sendEmail(correo: string): Observable<RespuestaResponse> {
+    return this.http.get<RespuestaResponse>(UriConstante.SEND_EMAIL + correo)
+  }
+  changePassword(password: string, tokenPassword: string): Observable<RespuestaResponse> {
+    return this.http.put<RespuestaResponse>(UriConstante.CHANGE_PASSWORD, {password: password, tokenPassword: tokenPassword})
   }
 }

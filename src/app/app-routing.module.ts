@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { DefaultLayoutComponent } from './containers';
+import { ChangePasswordComponent } from './views/system/page/auth/change-password/change-password.component';
 import { LoginComponent } from './views/system/page/auth/login/login.component';
+import { PageChangePasswordComponent } from './views/system/page/auth/page-change-password/page-change-password.component';
 import { Page404Component } from './views/system/page/auth/page404/page404.component';
 import { SharedSystemModule } from './views/system/shared-system/shared-system.module';
 
@@ -55,7 +57,21 @@ const routes: Routes = [
       title: 'Page not authorized'
     }
   },
-  {path: '**', redirectTo: 'dashboard'}
+  {
+    path: 'send-email',
+    component: PageChangePasswordComponent,
+    data: {
+      title: 'Page not authorized'
+    }
+  },
+  {
+    path: 'change-password/:token',
+    component: ChangePasswordComponent,
+    data: {
+      title: 'Page not authorized'
+    }
+  },
+  {path: '**', redirectTo: 'login'}
 ];
 
 @NgModule({

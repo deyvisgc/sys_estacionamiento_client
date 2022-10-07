@@ -17,8 +17,10 @@ export class DefaultLayoutComponent implements OnInit  {
 
   constructor(private loginService: LoginService) {}
   ngOnInit(): void {
-    const token = this.loginService.getUsers()
-    this.usuario = token.username
+    if(this.loginService.getToken()) {
+      const token = this.loginService.getUsers()
+      this.usuario = token.username
+    }
   }
 
 

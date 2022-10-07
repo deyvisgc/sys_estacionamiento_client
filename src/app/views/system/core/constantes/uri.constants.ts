@@ -36,4 +36,8 @@ export class UriConstante {
 
     // CONFIGURACION
     public static readonly CONFIGURACION = environment.host + GruposPath.CONFIGURACION
+
+    // ACTUALIZAR PASSWORD
+    public static readonly SEND_EMAIL = environment.host + "change-password/send-email/"
+    public static readonly CHANGE_PASSWORD = environment.host + "change-password/"
 }

@@ -8,13 +8,16 @@ import { Router } from '@angular/router';
 export class JwtRequestInterceptor implements HttpInterceptor {
     constructor(private authService: LoginService, private router: Router) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (this.authService.isLoggedInUser()) {
+      if (!request.url.includes("change-password") && !this.authService.getToken()) {
+        this.router.navigate(['/login'])
+      }
+      if (this.authService.isLoggedInUser()) {
           request = request.clone({
             setHeaders: {
               authorization: `Bearer ${this.authService.getToken()}`,
             }
           })
-        }
-        return next.handle(request);
+      }
+      return next.handle(request);
     }
 }
