@@ -3,7 +3,7 @@ import { RoleRequest } from "./role.request";
 export interface UsuarioRequest {
     id?: number,
     user_name: string,
-    password:string,
+    password?:string,
     person: PersonaRequest,
-    role: any
+    role?: any
 }

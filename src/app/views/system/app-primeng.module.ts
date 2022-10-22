@@ -29,6 +29,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import {CardModule} from 'primeng/card';
 import {MessageModule} from 'primeng/message';
 import {PasswordModule} from 'primeng/password';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 @NgModule({
   declarations: [
   ],
@@ -60,7 +61,8 @@ import {PasswordModule} from 'primeng/password';
     ChipsModule,
     CardModule,
     MessageModule,
-    PasswordModule
+    PasswordModule,
+    InputTextareaModule
   ],
   providers: [DialogService, MessageService, ConfirmationService]
 })

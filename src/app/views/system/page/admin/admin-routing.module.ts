@@ -4,11 +4,17 @@ import { ListUsersComponent } from './component/list-users/list-users.component'
 import { ProGuard } from 'src/app/guard.guard';
 import { Roles } from 'src/app/views/system/core/constantes/roles';
 import { ConfiguracionComponent } from './configuracion/configuracion.component';
+import { ProfileComponent } from './component/profile/profile.component';
 const routes: Routes = [
   {
     path: 'users',
     component: ListUsersComponent,
     canActivate: [ProGuard], data: { expectedRol: Roles.PERMISOSADMINUSERS}
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [ProGuard], data: { expectedRol: Roles.PERMISOSALL}
   },
   {
     path: 'config',
@@ -19,6 +25,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+exports: [RouterModule]
 })
 export class AdminRoutingModule { }

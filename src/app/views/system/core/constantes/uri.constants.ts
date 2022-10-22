@@ -8,7 +8,7 @@ export class UriConstante {
   public static readonly USUARIO = environment.host + GruposPath.USUARIO
   public static readonly GETBYID = environment.host + GruposPath.USUARIO + '{id}'
   public static readonly DELETE = environment.host + GruposPath.USUARIO + '{id}'
-
+  public static readonly CHANGE_PASSWORD_PROFILE = environment.host + GruposPath.USUARIO + "change-password/"
     //Modulo Parqueo
     public static readonly PARQUEO = environment.host + GruposPath.PARQUEO
     public static readonly TIPOVEHICULO = environment.host + GruposPath.TIPOVEHICULO
@@ -40,4 +40,5 @@ export class UriConstante {
     // ACTUALIZAR PASSWORD
     public static readonly SEND_EMAIL = environment.host + "change-password/send-email/"
     public static readonly CHANGE_PASSWORD = environment.host + "change-password/"
+  
 }

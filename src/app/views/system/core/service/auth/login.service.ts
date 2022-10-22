@@ -81,4 +81,7 @@ export class LoginService {
   changePassword(password: string, tokenPassword: string): Observable<RespuestaResponse> {
     return this.http.put<RespuestaResponse>(UriConstante.CHANGE_PASSWORD, {password: password, tokenPassword: tokenPassword})
   }
+  changePasswordProfile(oldPassword: string,password: string, username:string): Observable<RespuestaResponse> {
+    return this.http.put<RespuestaResponse>(UriConstante.CHANGE_PASSWORD_PROFILE, {password: password, oldPassword: oldPassword, username: username})
+  }
 }

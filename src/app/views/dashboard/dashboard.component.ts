@@ -57,6 +57,8 @@ export class DashboardComponent implements OnInit {
       this.getTotalGanancias()
       this.getTotalNuevosIngresos()
       this.getTotalComprobantes()
+    } else {
+      this.router.navigate(["/"])
     }
   }
 

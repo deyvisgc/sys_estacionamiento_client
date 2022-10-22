@@ -9,12 +9,14 @@ import { ElModule } from 'element-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListUsersComponent } from './component/list-users/list-users.component';
 import { ConfiguracionComponent } from './configuracion/configuracion.component';
+import { ProfileComponent } from './component/profile/profile.component';
 
 @NgModule({
   declarations: [
     ListUsersComponent,
     FormUsersComponent,
-    ConfiguracionComponent
+    ConfiguracionComponent,
+    ProfileComponent
   ],
   imports: [
     FormsModule,

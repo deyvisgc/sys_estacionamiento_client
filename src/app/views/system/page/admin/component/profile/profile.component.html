@@ -1,0 +1,152 @@
+<section >
+    <div class="container" style="border-radius: 10px;">
+        <h1 class="mb-5"></h1>
+        <div class="bg-white shadow rounded-lg d-block d-sm-flex">
+            <div class="profile-tab-nav border-right">
+                <div class="p-4" style="display: flex;
+    align-items: start;
+    flex-direction: column;">
+                    <div class="img-circle text-center mb-3">
+                        <img src="./assets/img/avatars/10.png" width="100" alt="Image" class="shadow">
+                    </div>
+                    <h4 class="text-center fa-1x" style="margin-left: 20px;">{{userName}}</h4>
+                </div>
+                <div class="d-flex">
+                    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-pills" orientation="vertical">
+                        <li ngbNavItem="top">
+                            <a ngbNavLink> <i class="fa fa-home text-center mr-1"></i> Datos Personales</a>
+                            <ng-template ngbNavContent>
+                                    <div  style="margin-top: -180px; padding: 10px;">
+                                        <h3 class="mb-4">Información</h3>
+                                        <form [formGroup]="form">
+                                            <div class="row" style="padding: 10px;">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                          <label>Nombres</label>
+                                                          <input type="text" class="form-control" formControlName="nombre" [class.is-invalid]="campoNombre.invalid && campoNombre.touched">
+                                                          <div class="invalid-feedback" *ngIf="campoNombre.hasError('required')">Nombre es requerido</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                          <label>Telefono</label>
+                                                          <input type="text" class="form-control"  formControlName="telefono" appSoloNumero [class.is-invalid]="campoTelefono.invalid && campoTelefono.touched">
+                                                          <div class="invalid-feedback" *ngIf="campoTelefono.hasError('minlength')">Minimo debete tener 9 digitos</div>
+                                                          <div class="invalid-feedback" *ngIf="campoTelefono.hasError('maxlength')">Maximo debete tener 9 digitos</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                          <label>Numero Documento</label>
+                                                          <input type="text" class="form-control" [class.is-invalid]="campoDni.invalid && campoDni.touched"  appSoloNumero formControlName="dni">
+                                                          <div class="invalid-feedback" *ngIf="campoDni.hasError('required')">Numero documento Requerido</div>
+                                                          <div class="invalid-feedback" *ngIf="campoDni.hasError('minlength')">Minimo debete tener 8 digitos</div>
+                                                          <div class="invalid-feedback" *ngIf="campoDni.hasError('maxlength')">Maximo debete tener 8 digitos</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                          <label>Correo</label>
+                                                          <input type="text" class="form-control" formControlName="correo"  [class.is-invalid]="campoCorreo.invalid && campoCorreo.touched">
+                                                          <div class="invalid-feedback" *ngIf="campoCorreo.hasError('required')">Correo es requerido</div>
+                                                          <div class="invalid-feedback" *ngIf="campoCorreo.hasError('email')">Correo debe tener formato valido</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                          <label>Usuario</label>
+                                                          <input type="text" class="form-control" formControlName="username" [class.is-invalid]="campoUsername.invalid && campoUsername.touched">
+                                                          <div class="invalid-feedback" *ngIf="campoUsername.hasError('required')">Usuario es requerido</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group" style="width: 100%;">
+                                                        <label for="example-text-input">Pefiles</label>
+                                                        <div class="input-group">
+                                                            <div class="col-md-12">
+                                                              <ng-select  [multiple]="true" [disabled]="true"  formControlName="rol" [class.is-invalid]="campoRol.invalid && campoRol.touched">
+                                                                <ng-option *ngFor="let r of rol" [value]="r.id">{{r.descripcion}}</ng-option>
+                                                              </ng-select>
+                                                              <div class="invalid-feedback" *ngIf="campoRol.hasError('required')">Rol es requerido</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                          <label>Dirección</label>
+                                                          <input type="text" class="form-control" formControlName="direccion">
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-center">
+                                                    <el-button size="small" type="primary" (click)="guardar()" [disabled]="isSave" >
+                                                        <span *ngIf="!isSave">Actualizar</span>
+                                                        <i *ngIf="isSave" class="fas fa-spinner fa-spin"></i>
+                                                    </el-button>
+                                                </div>
+                                                <p></p>
+                                                <p></p>
+                                                <p></p>
+                                            </div>
+                                        </form>
+                                    </div>
+                            </ng-template>
+                        </li>
+                        <li ngbNavItem="middle">
+                            <a ngbNavLink><i class="fa fa-key text-center mr-1"></i> Password</a>
+                                <ng-template ngbNavContent >
+                                    <div style="margin-top: -180px;  padding: 10px;">
+                                        <h3 class="mb-4">Actualizar Contraseña</h3>
+
+                                        <form [formGroup]="formPassword" (ngSubmit)="change()">
+                                            <div class="row" style="padding: 10px;">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                          <label>Contraseña Antigua</label>
+                                                          <input class="form-control" [class.is-invalid]="campoOldPassword.invalid && campoOldPassword.touched" formControlName="oldPassword" type="password">
+                                                          <div class="invalid-feedback" *ngIf="campoOldPassword.hasError('required')">Contraseña Antigua Requerida</div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                          <label>Nueva Contraseña</label>
+                                                          <input class="form-control" [class.is-invalid]="campoPassword.invalid && campoPassword.touched" formControlName="password"  name="password" type="password">
+                                                          <div class="invalid-feedback" *ngIf="campoPassword.hasError('required')">Contraseña Requerida</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                          <label>Confirmar Contraseña</label>
+                                                          <input formControlName="confirmarPassword" name="confirmarPassword" [class.is-invalid]="(confirmarPassword.invalid && confirmarPassword.touched) || (checarSiSonIguales() && confirmarPassword.touched)" type="password" class="form-control" >
+                                                          <div class="invalid-feedback" *ngIf="confirmarPassword.hasError('required')">Password confirmación requerido</div>
+                                                          <div class="invalid-feedback" *ngIf="checarSiSonIguales()">Password no conciden</div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-center">
+                                                    <button cButton type="submit" class="px-4" color="primary" [disabled]="isChange">
+                                                        <span *ngIf="!isChange">Actualizar</span>
+                                                        <span *ngIf="isChange"><i class="fas fa-spinner fa-spin"></i></span>
+                                                    </button>
+                                                </div>
+                                                <p></p>
+                                                <p></p>
+                                                <p></p>
+                                            </div>
+                                        </form>
+                                    </div>
+                                <p></p>
+                                <p></p>
+                                <p></p>
+                            </ng-template>
+
+   
+                        </li>
+                    </ul>
+                
+                    <div [ngbNavOutlet]="nav" class="ms-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
